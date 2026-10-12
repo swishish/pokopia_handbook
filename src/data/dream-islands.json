@@ -1,0 +1,109 @@
+{
+  "title": "Pokopia Dream Islands",
+  "title_tc": "Pokopia 夢島",
+  "updated": "2026-10-12",
+  "sources": [
+    "https://game8.jp/pocoapokemon/767482",
+    "https://gamewith.jp/pocoapokemon/547183"
+  ],
+  "rules": {
+    "reset": "Next calendar day ~05:00; layout/items regenerate",
+    "visits_per_day": "One dream-island type per day; may re-enter same island same day",
+    "destruction": "Digging persists until daily reset",
+    "common_loot": [
+      "Star Sand (ほしのすな) → Star Piece"
+    ]
+  },
+  "islands": [
+    {
+      "id": "wilderness",
+      "name_tc": "荒野夢島",
+      "name_jp": "こうやのゆめしま",
+      "name_en": "Wilderness Dream Island",
+      "look_tc": "草原／荒野",
+      "doll_tc": "伊布玩偶",
+      "key_resources_tc": [
+        "橙橙果",
+        "藤蔓繩",
+        "發光蘑菇"
+      ],
+      "legendary_tc": "水君",
+      "dlc": false
+    },
+    {
+      "id": "seaside",
+      "name_tc": "海濱夢島",
+      "name_jp": "うなばらのゆめしま",
+      "name_en": "Seaside Dream Island",
+      "look_tc": "沙灘海岸",
+      "doll_tc": "皮卡丘玩偶",
+      "key_resources_tc": [
+        "線團",
+        "海玻璃碎片",
+        "貝殼"
+      ],
+      "legendary_tc": "雷公",
+      "dlc": false
+    },
+    {
+      "id": "rocky_mountain",
+      "name_tc": "岩山夢島",
+      "name_jp": "いわやまのゆめしま",
+      "name_en": "Rocky Mountain Dream Island",
+      "look_tc": "岩石山地",
+      "doll_tc": "皮皮玩偶",
+      "key_resources_tc": [
+        "可口蘑菇",
+        "銅",
+        "石灰石"
+      ],
+      "legendary_tc": null,
+      "dlc": false
+    },
+    {
+      "id": "volcano",
+      "name_tc": "火山夢島",
+      "name_jp": "かざんのゆめしま",
+      "name_en": "Volcano Dream Island",
+      "look_tc": "火山熔岩",
+      "doll_tc": "風速狗玩偶",
+      "key_resources_tc": [
+        "鐵",
+        "金",
+        "光石"
+      ],
+      "legendary_tc": "炎帝",
+      "dlc": false
+    },
+    {
+      "id": "sky",
+      "name_tc": "天空夢島",
+      "name_jp": "そらのゆめしま",
+      "name_en": "Sky Dream Island",
+      "look_tc": "天空／建築感",
+      "doll_tc": "快龍玩偶",
+      "key_resources_tc": [
+        "紙屑",
+        "寶可金屬",
+        "水晶碎片"
+      ],
+      "legendary_tc": "超夢",
+      "dlc": false
+    },
+    {
+      "id": "seabed",
+      "name_tc": "海底夢島",
+      "name_jp": "うみぞこのゆめしま",
+      "name_en": "Seabed Dream Island",
+      "look_tc": "水下（DLC）",
+      "doll_tc": "寶石海星玩偶",
+      "key_resources_tc": [
+        "海葡萄",
+        "小珊瑚",
+        "髒珍珠"
+      ],
+      "legendary_tc": "霏歐納",
+      "dlc": true
+    }
+  ]
+}

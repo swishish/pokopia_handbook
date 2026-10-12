@@ -1,0 +1,24 @@
+---
+import site from "../data/site.json";
+import { NAV, isCurrentPath } from "../lib/nav";
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">{site.brand_tc}</span>
+      <span class="brand-tag">非官方繁中指南</span>
+    </a>
+    <nav class="site-nav" aria-label="主要">
+      {
+        NAV.map((item) => (
+          <a href={item.href} aria-current={isCurrentPath(pathname, item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

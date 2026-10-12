@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import ConfidenceBadge from "../components/ConfidenceBadge.astro";
+import islands from "../data/dream-islands.json";
+import type { DreamIslandsFile } from "../lib/types";
+
+const data = islands as DreamIslandsFile;
+
+const dailyRules = [
+  {
+    title: "每日重置",
+    body: "翌日約 05:00 重置；地形與物品會重新生成。確切重置時辰尚未在遊戲內核對。",
+    confidence: "unverified",
+  },
+  {
+    title: "每日一種",
+    body: "每天一種夢島類型；同一座島當日可重進。挖掘痕跡會留到重置。",
+    confidence: "community-compiled",
+  },
+  {
+    title: "共通掉落",
+    body: data.rules.common_loot.join("；"),
+    confidence: "community-compiled",
+  },
+];
+---
+
+<BaseLayout title={data.title_tc} description="夢島類型、關鍵資源、玩偶與傳說速查。">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">先看資源，再決定重進</p>
+      <h1>{data.title_tc}</h1>
+      <p class="lead">每天一種夢島。先對關鍵資源與傳說，再決定要不要當天重進。海底為 DLC。</p>
+      <VersionBadge updated={data.updated} />
+    </header>
+
+    <section class="stack" style="margin-bottom: 1.4rem;" aria-labelledby="island-rules-heading">
+      <h2 id="island-rules-heading">進出規則</h2>
+      {
+        dailyRules.map((rule) => (
+          <article class="card">
+            <div class="meta-row">
+              <ConfidenceBadge value={rule.confidence} />
+            </div>
+            <h3 style="margin: 0.4rem 0;">{rule.title}</h3>
+            <p style="margin: 0;">{rule.body}</p>
+          </article>
+        ))
+      }
+    </section>
+
+    <div class="islands">
+      {
+        data.islands.map((island) => (
+          <article class="island-card">
+            <div class="meta-row">
+              {island.dlc ? <span class="badge badge-dlc">DLC</span> : <span class="badge">本篇</span>}
+            </div>
+            <h2>{island.name_tc}</h2>
+            <p class="muted">
+              {island.name_jp} · {island.name_en}
+            </p>
+            <p>
+              <strong>外觀</strong>　{island.look_tc}
+            </p>
+            <p>
+              <strong>玩偶</strong>　{island.doll_tc}
+            </p>
+            <p>
+              <strong>傳說</strong>　{island.legendary_tc ?? "無標示"}
+            </p>
+            <p>
+              <strong>關鍵資源</strong>
+            </p>
+            <ul class="resource-list">
+              {island.key_resources_tc.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="muted" style="margin-top: 1.2rem;">
+      來源：
+      {
+        data.sources.map((url, index) => (
+          <>
+            {index > 0 ? "、" : ""}
+            <a href={url} rel="noopener noreferrer">
+              {new URL(url).hostname}
+            </a>
+          </>
+        ))
+      }
+      。數字與名稱請回遊戲核對。
+    </p>
+  </div>
+</BaseLayout>

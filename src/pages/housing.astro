@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import ConfidenceBadge from "../components/ConfidenceBadge.astro";
+import housing from "../data/housing-rules.json";
+import type { HousingRulesFile } from "../lib/types";
+
+const data = housing as HousingRulesFile;
+---
+
+<BaseLayout title={data.title_tc} description={data.disclaimer_tc}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">答案先寫在前面</p>
+      <h1>{data.title_tc}</h1>
+      <p class="lead">先看信心標籤。數字來自社群實測的，進遊戲再核一次；官方沒寫的不要當鐵則。</p>
+      <p>{data.disclaimer_tc}</p>
+      <VersionBadge updated={data.updated} />
+    </header>
+
+    <ol class="rule-list">
+      {
+        data.rules.map((rule) => (
+          <li class="rule-card">
+            <div class="meta-row">
+              <ConfidenceBadge value={rule.confidence} />
+              <span class="muted">核對 {rule.verified_at}</span>
+            </div>
+            <h2>{rule.title_tc}</h2>
+            <p>{rule.body_tc}</p>
+            <p class="muted">來源：{rule.source_note_tc}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</BaseLayout>
+
+<style>
+  .rule-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

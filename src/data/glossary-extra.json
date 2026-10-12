@@ -1,0 +1,55 @@
+{
+  "note_tc": "口味日英對照取自系列慣用譯名，房屋用語為社群對照，尚未逐條對遊戲內截圖核對。",
+  "flavors": {
+    "sweet": { "name_jp": "あまい", "name_en": "Sweet" },
+    "sour": { "name_jp": "すっぱい", "name_en": "Sour" },
+    "spicy": { "name_jp": "からい", "name_en": "Spicy" },
+    "bitter": { "name_jp": "にがい", "name_en": "Bitter" },
+    "astringent": { "name_jp": "しぶい", "name_en": "Astringent / Dry" },
+    "plain": { "name_jp": "あっさり", "name_en": "Plain" }
+  },
+  "housing": [
+    {
+      "id": "house-recognition",
+      "name_tc": "房屋辨識",
+      "name_jp": "家判定",
+      "name_en": "House recognition"
+    },
+    {
+      "id": "comfort",
+      "name_tc": "舒適度",
+      "name_jp": "快適度",
+      "name_en": "Comfort"
+    },
+    {
+      "id": "comfort-cap",
+      "name_tc": "舒適度上限",
+      "name_jp": "快適度上限",
+      "name_en": "Comfort cap"
+    },
+    {
+      "id": "r3-range",
+      "name_tc": "R3 舒適範圍",
+      "name_jp": "R3快適範囲",
+      "name_en": "R3 comfort range"
+    },
+    {
+      "id": "glass-partition",
+      "name_tc": "玻璃隔間",
+      "name_jp": "ガラス間仕切り",
+      "name_en": "Glass partition"
+    },
+    {
+      "id": "floor-band",
+      "name_tc": "近地面樓層",
+      "name_jp": "地面帯",
+      "name_en": "Near-ground floor band"
+    },
+    {
+      "id": "dream-island",
+      "name_tc": "夢島",
+      "name_jp": "ゆめしま",
+      "name_en": "Dream Island"
+    }
+  ]
+}

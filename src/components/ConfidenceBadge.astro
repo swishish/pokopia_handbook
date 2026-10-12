@@ -1,0 +1,13 @@
+---
+import { confidenceClass, confidenceHint, confidenceLabel } from "../lib/confidence";
+
+type Props = {
+  value: string;
+};
+
+const { value } = Astro.props;
+---
+
+<span class={confidenceClass(value)} title={confidenceHint(value)}>
+  {confidenceLabel(value)}
+</span>

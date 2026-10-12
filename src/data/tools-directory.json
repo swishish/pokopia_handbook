@@ -1,0 +1,132 @@
+{
+  "title_tc": "工具選擇器",
+  "updated": "2026-10-12",
+  "last_checked": "2026-10-12",
+  "by_task": [
+    {
+      "task_tc": "房屋高樓",
+      "primary": "Buildopia",
+      "alt": "やまむー 建築シミュレーター",
+      "why_tc": "分層、藍圖與材料總計適合重複樓層"
+    },
+    {
+      "task_tc": "玻璃酒店",
+      "primary": "Buildopia",
+      "alt": "PokopiaMap Island Builder",
+      "why_tc": "透明牆／樓層幾何；區域配置用 Map；每層房屋辨識須遊戲內驗證"
+    },
+    {
+      "task_tc": "整島配置",
+      "primary": "PokopiaMap Island Builder",
+      "alt": "Buildopia",
+      "why_tc": "大畫布與套件點數預算"
+    },
+    {
+      "task_tc": "室友優化",
+      "primary": "Pokopia Companion",
+      "alt": "PokeTools Housing Calculator",
+      "why_tc": "Companion 給氣候／食物建議；PokeTools 適合高密度四住民"
+    },
+    {
+      "task_tc": "烹飪／口味查詢",
+      "primary": "本站 食物與口味",
+      "alt": "PokopiaMap Cooking",
+      "why_tc": "繁中速查優先本站"
+    },
+    {
+      "task_tc": "夢島資源",
+      "primary": "本站 夢島",
+      "alt": "Serebii / Game8",
+      "why_tc": "繁中速查＋關鍵資源"
+    }
+  ],
+  "directory": [
+    {
+      "id": "buildopia",
+      "name": "Buildopia",
+      "url": "https://buildopia.pages.dev/",
+      "lang": [
+        "EN"
+      ],
+      "cost": "free",
+      "best_for_tc": "3D 建造、材料清單、玻璃／高樓",
+      "limitations_tc": "房屋辨識須遊戲內驗證；清除瀏覽器可能丟本機專案",
+      "last_checked": "2026-10-12"
+    },
+    {
+      "id": "pokopiamap-island",
+      "name": "PokopiaMap Island Builder",
+      "url": "https://pokopiamap.com/island-builder",
+      "lang": [
+        "EN",
+        "JP"
+      ],
+      "cost": "free",
+      "best_for_tc": "整島／街區規劃、套件點數",
+      "limitations_tc": "唔保證精確碰撞／路徑",
+      "last_checked": "2026-10-12"
+    },
+    {
+      "id": "yamamu",
+      "name": "やまむー 建築シミュレーター",
+      "url": "https://yamamu-youtube.jp/pocoapokemon/building-sim.html",
+      "lang": [
+        "JP"
+      ],
+      "cost": "free",
+      "best_for_tc": "快速 2D 房間配置",
+      "limitations_tc": "無進階 3D／詳細材料",
+      "last_checked": "2026-10-12"
+    },
+    {
+      "id": "companion",
+      "name": "Pokopia Companion",
+      "url": "https://www.pokopiacompanion.com/",
+      "lang": [
+        "EN"
+      ],
+      "cost": "free",
+      "best_for_tc": "室友顧問、建造佇列",
+      "limitations_tc": "相容分數為啟發式",
+      "last_checked": "2026-10-12"
+    },
+    {
+      "id": "pokopiamap-roommate",
+      "name": "PokopiaMap Roommate Matchmaker",
+      "url": "https://pokopiamap.com/roommate-matchmaker",
+      "lang": [
+        "EN",
+        "JP",
+        "ZH"
+      ],
+      "cost": "free",
+      "best_for_tc": "透明共享條件配對",
+      "limitations_tc": "不計算遊戲內相容分數",
+      "last_checked": "2026-10-12"
+    },
+    {
+      "id": "poketools",
+      "name": "PokeTools Housing Calculator",
+      "url": "https://www.poketools.com/pokopia-housing-calculator",
+      "lang": [
+        "EN"
+      ],
+      "cost": "free",
+      "best_for_tc": "四住民偏好重疊",
+      "limitations_tc": "分數＝裝飾效率，非友情",
+      "last_checked": "2026-10-12"
+    },
+    {
+      "id": "gamepedia-checker",
+      "name": "Gamepedia Tools Checker",
+      "url": "https://toolz.gamepedia.jp/pocoapokemon/checker",
+      "lang": [
+        "JP"
+      ],
+      "cost": "free",
+      "best_for_tc": "日文完成度追蹤",
+      "limitations_tc": "本機儲存；清資料會丟",
+      "last_checked": "2026-10-12"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import site from "../data/site.json";
+import changelog from "../data/changelog.json";
+---
+
+<BaseLayout title="關於" description="非官方聲明、來源政策、更新紀錄與錯誤回報。">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">非官方 · 可免費閱讀</p>
+      <h1>關於本站</h1>
+      <p class="lead">{site.brand_tc}是給繁中玩家用的規則與速查，不是圖鑑，也不是官方網站。</p>
+      <VersionBadge />
+    </header>
+
+    <section class="stack">
+      <article class="card">
+        <h2>非官方聲明</h2>
+        <p>{site.disclaimer_tc}</p>
+        <p>站名刻意不用遊戲或公司商標。內容供個人參考，不構成官方說明。</p>
+      </article>
+
+      <article class="card">
+        <h2>來源政策</h2>
+        <ul class="plain-list">
+          <li><strong>官方</strong>：任天堂／寶可夢公司說明，或遊戲內可直接核對的字句。</li>
+          <li><strong>社群實測</strong>：編輯或玩家在遊戲內測過，附日期。版本更新後應再測。</li>
+          <li><strong>未驗證</strong>：尚未核對。請勿當最終答案。</li>
+        </ul>
+        <p>本站以文字與表格為主，不熱連他站圖片，也不整批抄圖鑑或對話表。工具條目只連出去，並寫限制與核對日。</p>
+        <p>
+          權利人若認為應下架，請來信
+          <a href={site.takedown_mailto}>提出下架請求</a>
+          ，我們會優先處理。
+        </p>
+      </article>
+
+      <article class="card" id="changelog">
+        <h2>更新紀錄</h2>
+        {
+          changelog.entries.map((entry) => (
+            <div>
+              <p>
+                <strong>{entry.date}</strong>　{entry.title_tc}
+              </p>
+              <p>{entry.body_tc}</p>
+            </div>
+          ))
+        }
+      </article>
+
+      <article class="card">
+        <h2>回報錯誤</h2>
+        <p>不用登入。寫你看到的頁面、遊戲版本，以及你在遊戲裡看到的結果。</p>
+        <p class="button-row">
+          <a class="button button-solid" href={site.report_mailto}>用郵件回報</a>
+          <a class="button" href={site.issues_url} rel="noopener noreferrer">GitHub Issues（預留）</a>
+        </p>
+      </article>
+    </section>
+  </div>
+</BaseLayout>

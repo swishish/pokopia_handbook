@@ -1,0 +1,229 @@
+{
+  "title_tc": "食物與口味",
+  "updated": "2026-10-12",
+  "game_version": "2.0.1",
+  "note_tc": "餵對口味可提升舒適度；每隻寶可夢偏好見圖鑑。圖示為識別用縮圖，須標來源。",
+  "flavors": [
+    {
+      "id": "sweet",
+      "name_tc": "甜甜的",
+      "items": [
+        {
+          "id": "sweet-0",
+          "name_tc": "桃桃果",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sweet-1",
+          "name_tc": "豆子",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sweet-2",
+          "name_tc": "哞哞咖啡",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sweet-3",
+          "name_tc": "蘋野沙拉",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sweet-4",
+          "name_tc": "鬆軟麵包",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sweet-5",
+          "name_tc": "馬鈴薯漢堡排",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sweet-6",
+          "name_tc": "糖果",
+          "source_type": "community-compiled"
+        }
+      ]
+    },
+    {
+      "id": "sour",
+      "name_tc": "酸酸的",
+      "items": [
+        {
+          "id": "sour-0",
+          "name_tc": "利木果",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sour-1",
+          "name_tc": "番茄",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sour-2",
+          "name_tc": "蘇打",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sour-3",
+          "name_tc": "絲絲沙拉",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sour-4",
+          "name_tc": "多滋湯",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sour-5",
+          "name_tc": "蘋野麵包",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "sour-6",
+          "name_tc": "番茄漢堡排",
+          "source_type": "community-compiled"
+        }
+      ]
+    },
+    {
+      "id": "spicy",
+      "name_tc": "辣辣的",
+      "items": [
+        {
+          "id": "spicy-0",
+          "name_tc": "紅蘿蔔",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "spicy-1",
+          "name_tc": "辣椒醬",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "spicy-2",
+          "name_tc": "麵包丁沙拉",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "spicy-3",
+          "name_tc": "電電湯",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "spicy-4",
+          "name_tc": "藥膳湯",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "spicy-5",
+          "name_tc": "紅蘿蔔麵包",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "spicy-6",
+          "name_tc": "濃湯麵包",
+          "source_type": "community-compiled"
+        }
+      ]
+    },
+    {
+      "id": "bitter",
+      "name_tc": "苦苦的",
+      "items": [
+        {
+          "id": "bitter-0",
+          "name_tc": "莓莓果",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "bitter-1",
+          "name_tc": "馬鈴薯",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "bitter-2",
+          "name_tc": "海藻",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "bitter-3",
+          "name_tc": "海藻沙拉／湯",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "bitter-4",
+          "name_tc": "重製麵包",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "bitter-5",
+          "name_tc": "成熟滋味漢堡排",
+          "source_type": "community-compiled"
+        }
+      ]
+    },
+    {
+      "id": "astringent",
+      "name_tc": "澀澀的",
+      "items": [
+        {
+          "id": "astringent-0",
+          "name_tc": "零餘果",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "astringent-1",
+          "name_tc": "小麥",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "astringent-2",
+          "name_tc": "蘑菇",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "astringent-3",
+          "name_tc": "羅絲雷朵茶",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "astringent-4",
+          "name_tc": "搗搗沙拉",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "astringent-5",
+          "name_tc": "蘑菇湯／漢堡排",
+          "source_type": "community-compiled"
+        }
+      ]
+    },
+    {
+      "id": "plain",
+      "name_tc": "平淡無奇",
+      "items": [
+        {
+          "id": "plain-0",
+          "name_tc": "蘋野果",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "plain-1",
+          "name_tc": "木子果",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "plain-2",
+          "name_tc": "清水",
+          "source_type": "community-compiled"
+        },
+        {
+          "id": "plain-3",
+          "name_tc": "原味沙拉／湯／麵包／漢堡排",
+          "source_type": "community-compiled"
+        }
+      ]
+    }
+  ]
+}

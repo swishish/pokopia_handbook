@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import { buildGlossary, glossaryNote } from "../lib/glossary";
+import site from "../data/site.json";
+
+const terms = buildGlossary();
+const categories = [...new Set(terms.map((term) => term.category_tc))];
+---
+
+<BaseLayout title="術語對照" description="口味、夢島與房屋用語的日英繁對照。">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">JP / EN / 繁中</p>
+      <h1>術語對照</h1>
+      <p class="lead">從本站資料生成：口味、島名，以及幾條房屋用語。可搜繁中、日文或英文。</p>
+      <p class="muted">{glossaryNote}</p>
+      <VersionBadge updated={site.updated} />
+    </header>
+
+    <div class="filter-bar">
+      <label>
+        <span class="muted">搜尋術語</span>
+        <input class="search-input" id="glossary-q" type="search" placeholder="例如：Wilderness、ゆめしま、舒適度" autocomplete="off" />
+      </label>
+      <div class="chips" role="group" aria-label="依分類篩選">
+        <button class="chip" type="button" data-cat="all" aria-pressed="true">全部</button>
+        {
+          categories.map((category) => (
+            <button class="chip" type="button" data-cat={category} aria-pressed="false">
+              {category}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <p id="glossary-count" class="muted" aria-live="polite"></p>
+    <div id="glossary-empty" class="empty" hidden>沒有符合的術語。試其他關鍵字，或改回全部。</div>
+
+    <div class="mobile-cards" id="glossary-cards">
+      {
+        terms.map((term) => (
+          <article
+            class="card glossary-item"
+            data-tc={term.name_tc}
+            data-jp={term.name_jp}
+            data-en={term.name_en}
+            data-cat={term.category_tc}
+          >
+            <p class="kicker">{term.category_tc}</p>
+            <h2 style="margin: 0 0 0.35rem; font-size: 1.15rem;">{term.name_tc}</h2>
+            <p style="margin: 0;">日文　{term.name_jp}</p>
+            <p style="margin: 0;">英文　{term.name_en}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="desktop-table table-wrap" style="margin-top: 1rem;">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">分類</th>
+            <th scope="col">繁中</th>
+            <th scope="col">日文</th>
+            <th scope="col">英文</th>
+          </tr>
+        </thead>
+        <tbody id="glossary-rows">
+          {
+            terms.map((term) => (
+              <tr
+                class="glossary-item"
+                data-tc={term.name_tc}
+                data-jp={term.name_jp}
+                data-en={term.name_en}
+                data-cat={term.category_tc}
+              >
+                <td>{term.category_tc}</td>
+                <th scope="row">{term.name_tc}</th>
+                <td>{term.name_jp}</td>
+                <td>{term.name_en}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const items = Array.from(document.querySelectorAll<HTMLElement>(".glossary-item"));
+  const search = document.querySelector<HTMLInputElement>("#glossary-q");
+  const empty = document.querySelector<HTMLElement>("#glossary-empty");
+  const count = document.querySelector<HTMLElement>("#glossary-count");
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-cat]"));
+  let category = "all";
+
+  function haystack(el: HTMLElement) {
+    return [el.dataset.tc, el.dataset.jp, el.dataset.en, el.dataset.cat].join(" ").toLowerCase();
+  }
+
+  function apply() {
+    const query = (search?.value ?? "").trim().toLowerCase();
+    let visiblePairs = 0;
+    const seen = new Set<string>();
+    for (const item of items) {
+      const matchCat = category === "all" || item.dataset.cat === category;
+      const matchQuery = !query || haystack(item).includes(query);
+      const show = matchCat && matchQuery;
+      item.hidden = !show;
+      const key = `${item.dataset.cat}-${item.dataset.tc}`;
+      if (show && !seen.has(key)) {
+        seen.add(key);
+        visiblePairs += 1;
+      }
+    }
+    if (empty) empty.hidden = visiblePairs !== 0;
+    if (count) count.textContent = `顯示 ${visiblePairs} 筆`;
+  }
+
+  for (const chip of chips) {
+    chip.addEventListener("click", () => {
+      category = chip.dataset.cat ?? "all";
+      for (const other of chips) {
+        other.setAttribute("aria-pressed", String(other === chip));
+      }
+      apply();
+    });
+  }
+
+  search?.addEventListener("input", apply);
+  apply();
+</script>

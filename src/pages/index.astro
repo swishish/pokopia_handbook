@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import site from "../data/site.json";
+import changelog from "../data/changelog.json";
+
+const shortcuts = [
+  {
+    href: "/housing/",
+    kicker: "先看規則",
+    title: "房屋規則",
+    body: "房屋辨識、舒適度與玻璃隔間。每條都有信心標籤。",
+  },
+  {
+    href: "/food/",
+    kicker: "餵對口味",
+    title: "食物",
+    body: "依甜酸辣苦澀與平淡篩食物。圖鑑對偏好，這裡對菜單。",
+  },
+  {
+    href: "/islands/",
+    kicker: "今日要挖什麼",
+    title: "夢島",
+    body: "六座夢島的關鍵資源、玩偶與傳說。DLC 另標。",
+  },
+  {
+    href: "/tools/#roommate",
+    kicker: "外部工具",
+    title: "室友說明",
+    body: "本站不做計算機。直接連到 Companion 與其他室友工具。",
+  },
+  {
+    href: "/tools/",
+    kicker: "選任務再開站",
+    title: "工具",
+    body: "高樓、玻璃酒店、整島、烹飪：告訴你該開哪一個。",
+  },
+  {
+    href: "/glossary/",
+    kicker: "日英繁對照",
+    title: "術語",
+    body: "口味、島名與房屋用語。可搜繁中、日文或英文。",
+  },
+];
+
+const latest = changelog.entries[0];
+---
+
+<BaseLayout title={site.brand_tc} description={site.one_liner_tc}>
+  <div class="wrap">
+    <section class="hero page-head">
+      <p class="kicker">免費 · 無廣告 · 規則優先</p>
+      <h1>{site.brand_tc}</h1>
+      <p class="lead">{site.tagline_tc}</p>
+      <p>{site.one_liner_tc}</p>
+      <VersionBadge />
+    </section>
+
+    <section class="card" aria-labelledby="changes-heading" style="margin-bottom: 1.4rem; max-width: 42rem;">
+      <h2 id="changes-heading" style="margin: 0 0 0.4rem; font-size: 1.1rem;">最近更新</h2>
+      <p class="muted" style="margin: 0 0 0.35rem;">{latest.date} · {latest.title_tc}</p>
+      <p style="margin: 0;">{latest.body_tc}</p>
+    </section>
+
+    <section aria-labelledby="tasks-heading">
+      <h2 id="tasks-heading" class="visually-hidden">六個任務入口</h2>
+      <div class="shortcuts">
+        {
+          shortcuts.map((item) => (
+            <a class="shortcut" href={item.href}>
+              <span class="kicker">{item.kicker}</span>
+              <strong>{item.title}</strong>
+              <span>{item.body}</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+</style>

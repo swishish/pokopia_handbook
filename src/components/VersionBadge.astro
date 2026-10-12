@@ -1,0 +1,14 @@
+---
+import site from "../data/site.json";
+
+type Props = {
+  updated?: string;
+};
+
+const { updated = site.updated } = Astro.props;
+---
+
+<p class="meta-row">
+  <span class="version-badge">遊戲 {site.game_version}</span>
+  <span class="badge">資料 {updated}</span>
+</p>

@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import ConfidenceBadge from "../components/ConfidenceBadge.astro";
+import food from "../data/food-flavors.json";
+import type { FoodFlavorsFile } from "../lib/types";
+
+const data = food as FoodFlavorsFile;
+const items = data.flavors.flatMap((flavor) =>
+  flavor.items.map((item) => ({
+    ...item,
+    flavor_id: flavor.id,
+    flavor_name: flavor.name_tc,
+  })),
+);
+---
+
+<BaseLayout title={data.title_tc} description={data.note_tc}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">對口味，不是對圖鑑</p>
+      <h1>{data.title_tc}</h1>
+      <p class="lead">餵對口味才加舒適度。先選口味，再對食物。每隻寶可夢的偏好仍以遊戲內圖鑑為準。</p>
+      <p>{data.note_tc}</p>
+      <VersionBadge updated={data.updated} />
+    </header>
+
+    <div class="filter-bar">
+      <div class="chips" role="group" aria-label="依口味篩選">
+        <button class="chip" type="button" data-flavor="all" aria-pressed="true">全部</button>
+        {
+          data.flavors.map((flavor) => (
+            <button class="chip" type="button" data-flavor={flavor.id} aria-pressed="false">
+              {flavor.name_tc}
+            </button>
+          ))
+        }
+      </div>
+      <label>
+        <span class="muted">搜尋食物名稱</span>
+        <input class="search-input" id="food-q" type="search" placeholder="例如：漢堡排、沙拉、果" autocomplete="off" />
+      </label>
+    </div>
+
+    <p id="food-count" class="muted" aria-live="polite"></p>
+    <div id="food-empty" class="empty" hidden>沒有符合的食物。試其他口味，或清空搜尋。</div>
+
+    <div class="food-grid" id="food-grid">
+      {
+        items.map((item) => (
+          <article class="food-card" data-flavor={item.flavor_id} data-name={item.name_tc}>
+            <div class="thumb-ph" aria-hidden="true">識別縮圖稍後加入</div>
+            <strong>{item.name_tc}</strong>
+            <span class="muted">{item.flavor_name}</span>
+            <ConfidenceBadge value={item.source_type} />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".chip[data-flavor]"));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>("#food-grid .food-card"));
+  const search = document.querySelector<HTMLInputElement>("#food-q");
+  const empty = document.querySelector<HTMLElement>("#food-empty");
+  const count = document.querySelector<HTMLElement>("#food-count");
+
+  let flavor = "all";
+
+  function apply() {
+    const query = (search?.value ?? "").trim();
+    let visible = 0;
+    for (const card of cards) {
+      const matchFlavor = flavor === "all" || card.dataset.flavor === flavor;
+      const matchQuery = !query || (card.dataset.name ?? "").includes(query);
+      const show = matchFlavor && matchQuery;
+      card.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    if (count) count.textContent = `顯示 ${visible} 筆`;
+  }
+
+  for (const chip of chips) {
+    chip.addEventListener("click", () => {
+      flavor = chip.dataset.flavor ?? "all";
+      for (const other of chips) {
+        other.setAttribute("aria-pressed", String(other === chip));
+      }
+      apply();
+    });
+  }
+
+  search?.addEventListener("input", apply);
+  apply();
+</script>

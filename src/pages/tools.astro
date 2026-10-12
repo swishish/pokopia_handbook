@@ -1,0 +1,182 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import tools from "../data/tools-directory.json";
+import type { ToolsDirectoryFile } from "../lib/types";
+
+const data = tools as ToolsDirectoryFile;
+
+function costLabel(cost: string) {
+  return cost === "free" ? "免費" : cost;
+}
+
+const roommateTools = data.directory.filter((tool) =>
+  ["companion", "pokopiamap-roommate", "poketools"].includes(tool.id),
+);
+---
+
+<BaseLayout title={data.title_tc} description="依任務挑選外部工具，並附語言、費用與限制。">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">本站不做規劃器</p>
+      <h1>{data.title_tc}</h1>
+      <p class="lead">選你要做的事，我們告訴你該開哪一個外部工具。每條都寫語言、費用、限制與上次核對日。</p>
+      <VersionBadge updated={data.updated} />
+    </header>
+
+    <section aria-labelledby="picker-heading">
+      <h2 id="picker-heading">任務選擇器</h2>
+      <div class="task-picks" role="group" aria-label="選擇任務">
+        <button class="task-pick" type="button" data-task="" aria-pressed="true">全部</button>
+        {
+          data.by_task.map((task) => (
+            <button class="task-pick" type="button" data-task={task.task_tc} aria-pressed="false">
+              {task.task_tc}
+            </button>
+          ))
+        }
+      </div>
+      <div id="pick-panel" class="pick-card" hidden></div>
+    </section>
+
+    <section id="roommate" aria-labelledby="roommate-heading" style="margin: 1.6rem 0;">
+      <h2 id="roommate-heading">室友說明（外部工具）</h2>
+      <p>本站不做室友計算機，也不鎖內容。氣候／食物建議用 Companion；高密度四住民用 PokeTools；要看共享條件用 PokopiaMap。</p>
+      <div class="grid-2">
+        {
+          roommateTools.map((tool) => (
+            <article class="card">
+              <h3 style="margin: 0 0 0.4rem;">{tool.name}</h3>
+              <p>{tool.best_for_tc}</p>
+              <p class="muted">限制：{tool.limitations_tc}</p>
+              <a class="button button-solid" href={tool.url} rel="noopener noreferrer">
+                開啟 {tool.name}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section aria-labelledby="directory-heading">
+      <h2 id="directory-heading">工具目錄</h2>
+      <p class="table-hint muted">寬螢幕看表格；手機改為卡片。上次核對：{data.last_checked}。</p>
+
+      <div class="mobile-cards" id="tool-cards">
+        {
+          data.directory.map((tool) => (
+            <article class="tool-card" data-name={tool.name}>
+              <h3 style="margin: 0 0 0.35rem;">{tool.name}</h3>
+              <p>
+                <a href={tool.url} rel="noopener noreferrer">
+                  {tool.url.replace(/^https?:\/\//, "")}
+                </a>
+              </p>
+              <p>
+                <strong>語言</strong>　{tool.lang.join(" / ")}
+              </p>
+              <p>
+                <strong>費用</strong>　{costLabel(tool.cost)}
+              </p>
+              <p>
+                <strong>適合</strong>　{tool.best_for_tc}
+              </p>
+              <p>
+                <strong>限制</strong>　{tool.limitations_tc}
+              </p>
+              <p class="muted">核對 {tool.last_checked}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="desktop-table table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">工具</th>
+              <th scope="col">網址</th>
+              <th scope="col">語言</th>
+              <th scope="col">費用</th>
+              <th scope="col">適合</th>
+              <th scope="col">限制</th>
+              <th scope="col">核對</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              data.directory.map((tool) => (
+                <tr data-name={tool.name}>
+                  <th scope="row">{tool.name}</th>
+                  <td>
+                    <a href={tool.url} rel="noopener noreferrer">
+                      開啟
+                    </a>
+                  </td>
+                  <td>{tool.lang.join(" / ")}</td>
+                  <td>{costLabel(tool.cost)}</td>
+                  <td>{tool.best_for_tc}</td>
+                  <td>{tool.limitations_tc}</td>
+                  <td>{tool.last_checked}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ tasks: data.by_task }}>
+  const buttons = Array.from(document.querySelectorAll("[data-task]"));
+  const panel = document.querySelector("#pick-panel");
+  const rows = Array.from(document.querySelectorAll("[data-name]"));
+
+  const internal = {
+    "本站 食物與口味": "/food/",
+    "本站 夢島": "/islands/",
+  };
+
+  function hrefFor(name) {
+    if (internal[name]) return internal[name];
+    const match = rows.find((row) => row.getAttribute("data-name") === name);
+    if (!match) return "";
+    const link = match.querySelector("a");
+    return link ? link.getAttribute("href") : "";
+  }
+
+  function render(taskName) {
+    if (!panel) return;
+    rows.forEach((row) => row.classList.remove("highlight"));
+    if (!taskName) {
+      panel.hidden = true;
+      panel.innerHTML = "";
+      return;
+    }
+    const task = tasks.find((item) => item.task_tc === taskName);
+    if (!task) return;
+    const primaryHref = hrefFor(task.primary);
+    const altHref = hrefFor(task.alt);
+    panel.hidden = false;
+    panel.innerHTML = `
+      <p class="kicker">建議</p>
+      <h3 style="margin:0 0 .4rem">${task.task_tc}</h3>
+      <p><strong>首選</strong>　${primaryHref ? `<a href="${primaryHref}" rel="noopener noreferrer">${task.primary}</a>` : task.primary}</p>
+      <p><strong>備選</strong>　${altHref ? `<a href="${altHref}" rel="noopener noreferrer">${task.alt}</a>` : task.alt}</p>
+      <p>${task.why_tc}</p>
+    `;
+    rows.forEach((row) => {
+      const name = row.getAttribute("data-name");
+      if (name === task.primary || name === task.alt) row.classList.add("highlight");
+    });
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const taskName = button.getAttribute("data-task") ?? "";
+      buttons.forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
+      render(taskName);
+    });
+  });
+</script>

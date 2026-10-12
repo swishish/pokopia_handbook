@@ -1,0 +1,35 @@
+---
+import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import site from "../data/site.json";
+
+type Props = {
+  title: string;
+  description?: string;
+};
+
+const { title, description = site.one_liner_tc } = Astro.props;
+const pageTitle = title === site.brand_tc ? title : `${title} · ${site.brand_tc}`;
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#F6F1E6" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要內容</a>
+    <SiteHeader />
+    <main id="main" class="page">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

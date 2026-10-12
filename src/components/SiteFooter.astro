@@ -1,0 +1,15 @@
+---
+import site from "../data/site.json";
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>{site.disclaimer_tc}</p>
+    <p class="muted">{site.support_note_tc}</p>
+    <div class="footer-meta">
+      <span>資料版本 {site.game_version} · {site.updated}</span>
+      <a href="/about/">關於與來源政策</a>
+      <a href={site.report_mailto}>回報錯誤</a>
+    </div>
+  </div>
+</footer>

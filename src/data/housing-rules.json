@@ -1,0 +1,48 @@
+{
+  "title_tc": "建築與房屋規則",
+  "game_version": "2.0.1",
+  "updated": "2026-10-12",
+  "disclaimer_tc": "社群實測為主；每條附信心標籤。遊戲更新後請再核對。",
+  "rules": [
+    {
+      "id": "house_recognition_height",
+      "title_tc": "房屋辨識與樓高",
+      "body_tc": "淨高約 20 層的結構仍可被判定為有效房屋；房屋判定本身未見明確高度上限。",
+      "confidence": "community-tested",
+      "verified_at": "2026-10-12",
+      "source_note_tc": "玩家實測（Gary）"
+    },
+    {
+      "id": "comfort_floor_band",
+      "title_tc": "舒適度只認近地面樓層",
+      "body_tc": "舒適度與互動主要只辨識接近樓面／地面帶的空間；更高層主要作視覺中庭效果。傢俬應放低才有效。",
+      "confidence": "community-tested",
+      "verified_at": "2026-10-12",
+      "source_note_tc": "玩家實測（Gary）"
+    },
+    {
+      "id": "comfort_cap",
+      "title_tc": "舒適度上限",
+      "body_tc": "環境／舒適度不能超過遊戲上限（例如 10／Awesome）。",
+      "confidence": "community-tested",
+      "verified_at": "2026-10-12",
+      "source_note_tc": "玩家實測（Gary）"
+    },
+    {
+      "id": "adjacent_r3_overlap",
+      "title_tc": "相鄰房屋與 R3 舒適範圍",
+      "body_tc": "相鄰房屋即使隔 1–2 格空隙，只要 R3 舒適範圍重疊，仍可共享傢俬效果。",
+      "confidence": "community-tested",
+      "verified_at": "2026-10-12",
+      "source_note_tc": "玩家實測（Gary）"
+    },
+    {
+      "id": "glass_partitions",
+      "title_tc": "玻璃隔間／多塔酒店",
+      "body_tc": "可用玻璃隔間做多塔玻璃酒店／溫泉度假村；每層獨立房屋辨識仍須在遊戲內核對。",
+      "confidence": "community-tested",
+      "verified_at": "2026-10-12",
+      "source_note_tc": "玩家規劃與實測（Gary）；細部幾何建議用 Buildopia 後回遊戲驗證"
+    }
+  ]
+}
