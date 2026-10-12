@@ -250,6 +250,9 @@ function waterLabels(mon: { favorites: string[]; favorites_tc: string[] }) {
     display: grid;
     gap: 0.45rem;
   }
+  .dex-card[hidden] {
+    display: none !important;
+  }
   .dex-open {
     display: grid;
     grid-template-columns: 88px 1fr;
