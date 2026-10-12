@@ -1,0 +1,360 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import ConfidenceBadge from "../components/ConfidenceBadge.astro";
+import pokedex from "../data/pokedex.json";
+
+const dex = Number(String(pokedex.species[0]?.dex ?? 0)).toString().padStart(3, "0");
+void dex;
+---
+
+<BaseLayout title="圖鑑" description="依屬性、口味與喜好類篩選 Pokopia 種族。種族中文為台灣官方譯名。">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">識別用 · 繁中官方譯名</p>
+      <h1>圖鑑</h1>
+      <p class="lead">
+        共 {pokedex.count} 筆。用屬性、喜歡的口味、喜好類（傢俬／活動）篩。種族中文對台灣寶可夢官方網站圖鑑；口味與喜好是社群表。
+      </p>
+      <p class="muted">{pokedex.note_tc}</p>
+      <VersionBadge updated={pokedex.updated} />
+    </header>
+
+    <div class="pokedex-filters">
+      <label>
+        <span class="muted">搜尋名稱或全國／本篇編號</span>
+        <input class="search-input" id="dex-q" type="search" placeholder="例如：水君、025、Pikachu" autocomplete="off" />
+      </label>
+
+      <fieldset class="filter-set">
+        <legend>屬性 <span class="muted">可多選，符合其中一種即可</span></legend>
+        <div class="chips" id="type-chips">
+          {
+            pokedex.types.map((type) => (
+              <button class="chip" type="button" data-filter="type" data-value={type.id} aria-pressed="false">
+                {type.name_tc}
+              </button>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <fieldset class="filter-set">
+        <legend>喜歡的口味 <span class="muted">對齊站內食物頁：甜／酸／辣／苦／澀</span></legend>
+        <div class="chips" id="flavor-chips">
+          {
+            pokedex.flavors.map((flavor) => (
+              <button class="chip" type="button" data-filter="flavor" data-value={flavor.id} aria-pressed="false">
+                {flavor.name_tc}
+              </button>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <details class="fav-panel">
+        <summary>喜好類（傢俬／活動）· 與口味分開</summary>
+        <div class="chips" id="fav-chips">
+          {
+            pokedex.favorite_categories.map((fav) => (
+              <button class="chip" type="button" data-filter="fav" data-value={fav.id} aria-pressed="false">
+                {fav.name_tc}
+              </button>
+            ))
+          }
+        </div>
+      </details>
+    </div>
+
+    <p id="dex-count" class="muted" aria-live="polite"></p>
+    <div id="dex-empty" class="empty" hidden>沒有符合的種族。少選幾個篩選，或清空搜尋。</div>
+
+    <div class="pokedex-grid" id="dex-grid">
+      {
+        pokedex.species.map((mon) => (
+          <article
+            class="dex-card"
+            data-id={mon.id}
+            data-tc={mon.name_tc}
+            data-en={mon.name_en}
+            data-jp={mon.name_jp}
+            data-dex={String(mon.dex)}
+            data-nat={String(mon.national_id)}
+            data-types={mon.type_ids.join(" ")}
+            data-flavor={mon.flavor_id}
+            data-favs={mon.favorites.join(" ")}
+            data-fav-labels={mon.favorites_tc.join("、")}
+            data-habitat={mon.habitat_tc}
+            data-location={mon.location_tc}
+            data-portal={mon.portal_url}
+            data-source={mon.source_url}
+            data-attr={mon.image_attr_tc}
+            data-unique={mon.pokopia_unique ? "1" : ""}
+          >
+            <button class="dex-open" type="button" data-open={mon.id} aria-label={`開啟 ${mon.name_tc} 詳情`}>
+              {mon.image ? (
+                <img src={mon.image} alt="" width="96" height="96" loading="lazy" />
+              ) : (
+                <span class="thumb-ph">無圖</span>
+              )}
+              <span class="dex-no">#{String(mon.dex).padStart(3, "0")}</span>
+              <strong>{mon.name_tc}</strong>
+            </button>
+            <div class="dex-meta">
+              <div class="type-row">
+                {mon.types.map((type, index) => (
+                  <span class={`type-pill type-${mon.type_ids[index]}`}>{type}</span>
+                ))}
+              </div>
+              {mon.flavor_tc ? <span class="mini-chip">{mon.flavor_tc}</span> : <span class="muted">口味未標</span>}
+              <div class="fav-row">
+                {mon.favorites_tc.slice(0, 3).map((fav) => (
+                  <span class="mini-chip mini-fav">{fav}</span>
+                ))}
+              </div>
+              <ConfidenceBadge value={mon.confidence} />
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <dialog class="dex-dialog" id="dex-dialog">
+    <div class="dex-dialog-body">
+      <button class="button" type="button" id="dex-close">關閉</button>
+      <div id="dex-dialog-content"></div>
+    </div>
+  </dialog>
+</BaseLayout>
+
+<style>
+  .pokedex-filters {
+    margin: 0 0 1rem;
+    padding: 0 0 0.75rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  .filter-set {
+    margin: 0.7rem 0 0;
+    padding: 0;
+    border: 0;
+  }
+  .filter-set legend {
+    font-weight: 800;
+    margin-bottom: 0.35rem;
+  }
+  .fav-panel {
+    margin-top: 0.7rem;
+    border: 2px solid var(--ink);
+    background: var(--paper-deep);
+    box-shadow: var(--shadow-sm);
+  }
+  .fav-panel summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0.75rem;
+    font-weight: 800;
+  }
+  .fav-panel .chips {
+    padding: 0 0.75rem 0.75rem;
+  }
+  .pokedex-grid {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: 1fr;
+  }
+  .dex-card {
+    border: 2px solid var(--ink);
+    background: #fffdf8;
+    box-shadow: var(--shadow-sm);
+    padding: 0.7rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .dex-open {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.65rem;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .dex-open img,
+  .dex-open .thumb-ph {
+    grid-row: 1 / span 2;
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    background: var(--paper-deep);
+    border: 2px solid var(--ink);
+  }
+  .dex-no {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--ink-muted);
+  }
+  .type-row,
+  .fav-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .type-pill,
+  .mini-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.6rem;
+    padding: 0.05rem 0.4rem;
+    border: 2px solid var(--ink);
+    font-size: 0.78rem;
+    font-weight: 800;
+    background: var(--paper);
+  }
+  .mini-fav {
+    font-weight: 600;
+    background: var(--paper-deep);
+  }
+  .type-fire { background: #f3d4c8; }
+  .type-water { background: #d4e4f3; }
+  .type-grass { background: #d9eddf; }
+  .type-electric { background: #f3ebc8; }
+  .type-ice { background: #dcecf3; }
+  .type-fighting { background: #efd4c4; }
+  .type-poison { background: #e6d4ef; }
+  .type-ground { background: #eadcc8; }
+  .type-flying { background: #dde4f3; }
+  .type-psychic { background: #f3d4e4; }
+  .type-bug { background: #e4edc8; }
+  .type-rock { background: #e4dcc8; }
+  .type-ghost { background: #ddd4e8; }
+  .type-dragon { background: #d4d8f0; }
+  .type-dark { background: #e4dcd4; }
+  .type-steel { background: #e0e4e8; }
+  .type-fairy { background: #f3dce8; }
+  .type-normal { background: #eeeae0; }
+  .dex-dialog {
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow);
+    background: var(--paper);
+    width: min(32rem, 100% - 1.5rem);
+    padding: 0;
+  }
+  .dex-dialog::backdrop {
+    background: rgb(26 26 26 / 0.45);
+  }
+  .dex-dialog-body {
+    padding: 1rem;
+  }
+  @media (min-width: 720px) {
+    .pokedex-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1080px) {
+    .pokedex-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<script>
+  const cards = Array.from(document.querySelectorAll<HTMLElement>("#dex-grid .dex-card"));
+  const search = document.querySelector<HTMLInputElement>("#dex-q");
+  const empty = document.querySelector<HTMLElement>("#dex-empty");
+  const count = document.querySelector<HTMLElement>("#dex-count");
+  const dialog = document.querySelector<HTMLDialogElement>("#dex-dialog");
+  const dialogBody = document.querySelector<HTMLElement>("#dex-dialog-content");
+  const closeBtn = document.querySelector<HTMLButtonElement>("#dex-close");
+
+  const selected = {
+    type: new Set<string>(),
+    flavor: new Set<string>(),
+    fav: new Set<string>(),
+  };
+
+  function toggle(group: "type" | "flavor" | "fav", value: string, button: HTMLButtonElement) {
+    if (selected[group].has(value)) selected[group].delete(value);
+    else selected[group].add(value);
+    button.setAttribute("aria-pressed", String(selected[group].has(value)));
+    apply();
+  }
+
+  function apply() {
+    const query = (search?.value ?? "").trim().toLowerCase();
+    let visible = 0;
+    for (const card of cards) {
+      const types = (card.dataset.types ?? "").split(" ").filter(Boolean);
+      const favs = (card.dataset.favs ?? "").split(" ").filter(Boolean);
+      const matchType = selected.type.size === 0 || types.some((id) => selected.type.has(id));
+      const matchFlavor = selected.flavor.size === 0 || selected.flavor.has(card.dataset.flavor ?? "");
+      const matchFav = selected.fav.size === 0 || favs.some((id) => selected.fav.has(id));
+      const hay = `${card.dataset.tc} ${card.dataset.en} ${card.dataset.jp} ${card.dataset.dex} ${card.dataset.nat}`.toLowerCase();
+      const matchQuery = !query || hay.includes(query) || (card.dataset.dex ?? "").padStart(3, "0").includes(query.replace("#", ""));
+      const show = matchType && matchFlavor && matchFav && matchQuery;
+      card.hidden = !show;
+      if (show) visible += 1;
+    }
+    if (empty) empty.hidden = visible !== 0;
+    if (count) count.textContent = `顯示 ${visible}／${cards.length} 筆`;
+  }
+
+  document.querySelectorAll<HTMLButtonElement>("[data-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const group = button.dataset.filter as "type" | "flavor" | "fav";
+      const value = button.dataset.value ?? "";
+      toggle(group, value, button);
+    });
+  });
+
+  search?.addEventListener("input", apply);
+
+  function openCard(card: HTMLElement) {
+    if (!dialog || !dialogBody) return;
+    const img = card.querySelector("img")?.getAttribute("src") ?? "";
+    const types = [...card.querySelectorAll(".type-pill")].map((el) => el.outerHTML).join(" ");
+    const favLabels = card.dataset.favLabels ?? "";
+    const extraFav = "";
+    dialogBody.innerHTML = `
+      <p class="kicker">${card.dataset.unique ? "本作用例" : "種族"}</p>
+      <p class="dex-no">#${(card.dataset.dex ?? "").padStart(3, "0")} · 全國 ${card.dataset.nat}</p>
+      <h2 style="margin:.2rem 0 .5rem">${card.dataset.tc}</h2>
+      <p class="muted">${card.dataset.jp} · ${card.dataset.en}</p>
+      ${img ? `<img src="${img}" alt="" width="96" height="96" style="image-rendering:pixelated;border:2px solid #1a1a1a;background:#ebe3d1">` : ""}
+      <p>${types}</p>
+      <p><strong>喜歡的口味</strong>　${card.querySelector(".mini-chip:not(.mini-fav)")?.textContent ?? "未標"}</p>
+      <p><strong>喜好類</strong>　${favLabels || "未標"}${extraFav}</p>
+      <p><strong>棲息</strong>　${card.dataset.habitat ?? "—"}</p>
+      <p><strong>主要地區</strong>　${card.dataset.location ?? "—"}</p>
+      <p class="muted">${card.dataset.attr ?? ""}</p>
+      <p class="button-row">
+        ${card.dataset.portal ? `<a class="button button-solid" href="${card.dataset.portal}" rel="noopener noreferrer">台灣官方圖鑑</a>` : ""}
+        ${card.dataset.source ? `<a class="button" href="${card.dataset.source}" rel="noopener noreferrer">Serebii</a>` : ""}
+      </p>
+    `;
+    dialog.showModal();
+  }
+
+  document.querySelector("#dex-grid")?.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLElement>("[data-open]");
+    if (!button) return;
+    const card = button.closest<HTMLElement>(".dex-card");
+    if (card) openCard(card);
+  });
+  closeBtn?.addEventListener("click", () => dialog?.close());
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  apply();
+</script>

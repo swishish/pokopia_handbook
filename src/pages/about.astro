@@ -11,7 +11,7 @@ import officialNames from "../data/official-names.json";
     <header class="page-head">
       <p class="kicker">非官方 · 可免費閱讀</p>
       <h1>關於本站</h1>
-      <p class="lead">{site.brand_tc}是給繁中玩家用的規則與速查，不是圖鑑，也不是官方網站。</p>
+      <p class="lead">{site.brand_tc}是給繁中玩家用的規則、口味與圖鑑速查，不是官方網站。</p>
       <VersionBadge />
     </header>
 
@@ -36,7 +36,14 @@ import officialNames from "../data/official-names.json";
           <a href={officialNames.card_source_url} rel="noopener noreferrer">{officialNames.card_source_name_tc}</a>
           。
         </p>
-        <p>本站以文字與表格為主，不熱連他站圖片，也不整批抄圖鑑或對話表。工具條目只連出去，並寫限制與核對日。</p>
+        <p>
+          圖鑑口味與喜好類來自
+          <a href="https://github.com/JEschete/PokopiaPlanning" rel="noopener noreferrer">PokopiaPlanning CSV</a>
+          ，並對
+          <a href="https://www.serebii.net/pokemonpokopia/pokedex/" rel="noopener noreferrer">Serebii Pokopia Pokédex</a>
+          。縮圖為識別用精靈圖（PokeAPI Sprites），下載在本站，不熱連。不重抄官方圖鑑敘述。
+        </p>
+        <p>本站以文字與表格為主。工具條目只連出去，並寫限制與核對日。</p>
         <p>
           {
             site.takedown_mailto ? (

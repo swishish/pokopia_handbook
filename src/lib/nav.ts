@@ -2,6 +2,7 @@ export const NAV = [
   { href: "/", label: "首頁" },
   { href: "/housing/", label: "房屋規則" },
   { href: "/food/", label: "食物" },
+  { href: "/pokedex/", label: "圖鑑" },
   { href: "/islands/", label: "夢島" },
   { href: "/tools/", label: "工具" },
   { href: "/glossary/", label: "術語" },

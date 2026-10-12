@@ -82,6 +82,18 @@ for (const tool of tools.directory) {
   if (!tool.lang.length) fail(`工具 ${tool.id} 缺少語言`);
 }
 
+const pokedex = await load("pokedex.json");
+if (!pokedex.species?.length) fail("圖鑑為空");
+uniqueIds(pokedex.species, "圖鑑");
+const TYPE_TC = new Set(["一般", "火", "水", "草", "電", "冰", "格鬥", "毒", "地面", "飛行", "超能力", "蟲", "岩石", "幽靈", "龍", "惡", "鋼", "妖精"]);
+for (const mon of pokedex.species) {
+  requireFields(mon, ["id", "dex", "name_tc", "name_en", "confidence"], `圖鑑 ${mon.id}`);
+  if (!mon.name_tc.trim()) fail(`圖鑑 ${mon.id} 名稱空白`);
+  for (const type of mon.types ?? []) {
+    if (!TYPE_TC.has(type)) fail(`圖鑑 ${mon.id} 屬性不是官方繁中：${type}`);
+  }
+}
+
 if (process.exitCode) {
   process.exit(process.exitCode);
 }
