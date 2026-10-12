@@ -1,0 +1,130 @@
+{
+  "policy_tc": "寶可夢種族中文名稱以台灣寶可夢官方網站圖鑑為準，不用機器翻譯、簡體或日文漢字硬譯。本 MVP 沒有種族敘述欄；夢島傳說與玩偶名稱只取官方種族名。",
+  "source_name_tc": "台灣寶可夢官方網站圖鑑",
+  "source_url": "https://tw.portal-pokemon.com/play/pokedex/",
+  "card_source_name_tc": "寶可夢卡片搜尋（訓練家網站）",
+  "card_source_url": "https://asia.pokemon-card.com/tw/card-search/list/",
+  "verified_at": "2026-10-12",
+  "species": [
+    {
+      "id": "suicune",
+      "dex": "0245",
+      "name_tc": "水君",
+      "name_jp": "スイクン",
+      "name_en": "Suicune",
+      "used_as_tc": "legendary_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0245/",
+      "match": "exact"
+    },
+    {
+      "id": "raikou",
+      "dex": "0243",
+      "name_tc": "雷公",
+      "name_jp": "ライコウ",
+      "name_en": "Raikou",
+      "used_as_tc": "legendary_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0243/",
+      "match": "exact"
+    },
+    {
+      "id": "entei",
+      "dex": "0244",
+      "name_tc": "炎帝",
+      "name_jp": "エンテイ",
+      "name_en": "Entei",
+      "used_as_tc": "legendary_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0244/",
+      "match": "exact"
+    },
+    {
+      "id": "mewtwo",
+      "dex": "0150",
+      "name_tc": "超夢",
+      "name_jp": "ミュウツー",
+      "name_en": "Mewtwo",
+      "used_as_tc": "legendary_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0150/",
+      "match": "exact"
+    },
+    {
+      "id": "phione",
+      "dex": "0489",
+      "name_tc": "霏歐納",
+      "name_jp": "フィオネ",
+      "name_en": "Phione",
+      "used_as_tc": "legendary_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0489/",
+      "match": "exact"
+    },
+    {
+      "id": "eevee",
+      "dex": "0133",
+      "name_tc": "伊布",
+      "name_jp": "イーブイ",
+      "name_en": "Eevee",
+      "used_as_tc": "doll_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0133/",
+      "match": "exact"
+    },
+    {
+      "id": "pikachu",
+      "dex": "0025",
+      "name_tc": "皮卡丘",
+      "name_jp": "ピカチュウ",
+      "name_en": "Pikachu",
+      "used_as_tc": "doll_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0025/",
+      "match": "exact"
+    },
+    {
+      "id": "clefairy",
+      "dex": "0035",
+      "name_tc": "皮皮",
+      "name_jp": "ピッピ",
+      "name_en": "Clefairy",
+      "used_as_tc": "doll_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0035/",
+      "match": "exact"
+    },
+    {
+      "id": "arcanine",
+      "dex": "0059",
+      "name_tc": "風速狗",
+      "name_jp": "ウインディ",
+      "name_en": "Arcanine",
+      "used_as_tc": "doll_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0059/",
+      "match": "exact"
+    },
+    {
+      "id": "dragonite",
+      "dex": "0149",
+      "name_tc": "快龍",
+      "name_jp": "カイリュー",
+      "name_en": "Dragonite",
+      "used_as_tc": "doll_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0149/",
+      "match": "exact"
+    },
+    {
+      "id": "starmie",
+      "dex": "0121",
+      "name_tc": "寶石海星",
+      "name_jp": "スターミー",
+      "name_en": "Starmie",
+      "used_as_tc": "doll_tc",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0121/",
+      "match": "exact"
+    },
+    {
+      "id": "roserade",
+      "dex": "0407",
+      "name_tc": "羅絲雷朵",
+      "name_jp": "ロズレイド",
+      "name_en": "Roserade",
+      "used_as_tc": "food_name",
+      "url": "https://tw.portal-pokemon.com/play/pokedex/0407/",
+      "match": "exact"
+    }
+  ]
+}

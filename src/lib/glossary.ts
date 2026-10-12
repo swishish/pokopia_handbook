@@ -1,6 +1,7 @@
 import extra from "../data/glossary-extra.json";
 import food from "../data/food-flavors.json";
 import islands from "../data/dream-islands.json";
+import officialNames from "../data/official-names.json";
 import type { DreamIslandsFile, FoodFlavorsFile, GlossaryTerm } from "./types";
 
 const foodData = food as FoodFlavorsFile;
@@ -19,6 +20,16 @@ export function buildGlossary(): GlossaryTerm[] {
       name_jp: mapped?.name_jp ?? "—",
       name_en: mapped?.name_en ?? "—",
       category_tc: "口味",
+    });
+  }
+
+  for (const species of officialNames.species) {
+    terms.push({
+      id: `species-${species.id}`,
+      name_tc: species.name_tc,
+      name_jp: species.name_jp,
+      name_en: species.name_en,
+      category_tc: "種族",
     });
   }
 

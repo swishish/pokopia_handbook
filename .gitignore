@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # incoming brief / seed uploads (copied into src/data)
 uploads/
+
+# local host CLI state
+.netlify/

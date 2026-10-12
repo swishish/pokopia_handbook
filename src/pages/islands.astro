@@ -31,7 +31,7 @@ const dailyRules = [
     <header class="page-head">
       <p class="kicker">先看資源，再決定重進</p>
       <h1>{data.title_tc}</h1>
-      <p class="lead">每天一種夢島。先對關鍵資源與傳說，再決定要不要當天重進。海底為 DLC。</p>
+      <p class="lead">每天一種夢島。先對關鍵資源與傳說，再決定要不要當天重進。海底為資料片內容。傳說與玩偶種族名依台灣寶可夢官方網站圖鑑。</p>
       <VersionBadge updated={data.updated} />
     </header>
 
@@ -55,7 +55,7 @@ const dailyRules = [
         data.islands.map((island) => (
           <article class="island-card">
             <div class="meta-row">
-              {island.dlc ? <span class="badge badge-dlc">DLC</span> : <span class="badge">本篇</span>}
+              {island.dlc ? <span class="badge badge-dlc">資料片</span> : <span class="badge">本篇</span>}
             </div>
             <h2>{island.name_tc}</h2>
             <p class="muted">

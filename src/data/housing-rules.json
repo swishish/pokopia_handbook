@@ -23,7 +23,7 @@
     {
       "id": "comfort_cap",
       "title_tc": "舒適度上限",
-      "body_tc": "環境／舒適度不能超過遊戲上限（例如 10／Awesome）。",
+      "body_tc": "環境／舒適度不能超過遊戲上限（例如 10／最高）。",
       "confidence": "community-tested",
       "verified_at": "2026-10-12",
       "source_note_tc": "玩家實測（Gary）"

@@ -44,7 +44,15 @@ npm run validate # 只跑資料檢查
 3. 若部署在專案子路徑（例如 `https://user.github.io/repo/`），在 `astro.config.mjs` 加上 `base: '/repo'`。
 4. 不要接廣告或追蹤腳本。
 
-郵件回報與 GitHub Issues 連結目前是預留網址，上線前改 `src/data/site.json`。
+回報信箱尚未設定。要啟用「回報錯誤」連結，把信箱填進 `src/data/site.json` 的 `report_mailto`。
+
+種族中文以台灣寶可夢官方網站圖鑑為準，對照見 `src/data/official-names.md`。
+
+無帳號預覽部署（已建置的 `dist/`）：
+
+```bash
+npx netlify-cli deploy --dir=dist --no-build --allow-anonymous
+```
 
 ## 設計
 

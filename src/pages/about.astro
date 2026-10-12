@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import VersionBadge from "../components/VersionBadge.astro";
 import site from "../data/site.json";
 import changelog from "../data/changelog.json";
+import officialNames from "../data/official-names.json";
 ---
 
 <BaseLayout title="關於" description="非官方聲明、來源政策、更新紀錄與錯誤回報。">
@@ -28,11 +29,26 @@ import changelog from "../data/changelog.json";
           <li><strong>社群實測</strong>：編輯或玩家在遊戲內測過，附日期。版本更新後應再測。</li>
           <li><strong>未驗證</strong>：尚未核對。請勿當最終答案。</li>
         </ul>
+        <p>
+          種族中文以
+          <a href={officialNames.source_url} rel="noopener noreferrer">{officialNames.source_name_tc}</a>
+          為準。本站不重抄圖鑑敘述；只核對名稱。卡片名若日後出現，另查
+          <a href={officialNames.card_source_url} rel="noopener noreferrer">{officialNames.card_source_name_tc}</a>
+          。
+        </p>
         <p>本站以文字與表格為主，不熱連他站圖片，也不整批抄圖鑑或對話表。工具條目只連出去，並寫限制與核對日。</p>
         <p>
-          權利人若認為應下架，請來信
-          <a href={site.takedown_mailto}>提出下架請求</a>
-          ，我們會優先處理。
+          {
+            site.takedown_mailto ? (
+              <>
+                權利人若認為應下架，請來信
+                <a href={site.takedown_mailto}>提出下架請求</a>
+                ，我們會優先處理。
+              </>
+            ) : (
+              <>權利人下架管道尚未設定（預留）。設定前請勿把假信箱當成可寄達地址。</>
+            )
+          }
         </p>
       </article>
 
@@ -53,10 +69,24 @@ import changelog from "../data/changelog.json";
       <article class="card">
         <h2>回報錯誤</h2>
         <p>不用登入。寫你看到的頁面、遊戲版本，以及你在遊戲裡看到的結果。</p>
-        <p class="button-row">
-          <a class="button button-solid" href={site.report_mailto}>用郵件回報</a>
-          <a class="button" href={site.issues_url} rel="noopener noreferrer">GitHub Issues（預留）</a>
-        </p>
+        {
+          site.report_mailto || site.issues_url ? (
+            <p class="button-row">
+              {site.report_mailto ? (
+                <a class="button button-solid" href={site.report_mailto}>
+                  用郵件回報
+                </a>
+              ) : null}
+              {site.issues_url ? (
+                <a class="button" href={site.issues_url} rel="noopener noreferrer">
+                  GitHub Issues
+                </a>
+              ) : null}
+            </p>
+          ) : (
+            <p class="muted">{site.contact_note_tc}</p>
+          )
+        }
       </article>
     </section>
   </div>

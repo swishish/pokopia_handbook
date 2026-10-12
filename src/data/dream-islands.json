@@ -1,6 +1,6 @@
 {
   "title": "Pokopia Dream Islands",
-  "title_tc": "Pokopia 夢島",
+  "title_tc": "夢島速查",
   "updated": "2026-10-12",
   "sources": [
     "https://game8.jp/pocoapokemon/767482",
@@ -11,7 +11,7 @@
     "visits_per_day": "One dream-island type per day; may re-enter same island same day",
     "destruction": "Digging persists until daily reset",
     "common_loot": [
-      "Star Sand (ほしのすな) → Star Piece"
+      "星星沙子（ほしのすな）→ 星星碎片"
     ]
   },
   "islands": [
@@ -95,7 +95,7 @@
       "name_tc": "海底夢島",
       "name_jp": "うみぞこのゆめしま",
       "name_en": "Seabed Dream Island",
-      "look_tc": "水下（DLC）",
+      "look_tc": "水下（資料片）",
       "doll_tc": "寶石海星玩偶",
       "key_resources_tc": [
         "海葡萄",
