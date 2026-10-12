@@ -23,10 +23,13 @@ function waterLabels(mon: { favorites: string[]; favorites_tc: string[] }) {
       <p class="kicker">識別用 · 繁中官方譯名</p>
       <h1>圖鑑</h1>
       <p class="lead">
-        共 {pokedex.count} 筆。用屬性、喜歡的口味、棲息環境與喜好類篩。種族中文對台灣寶可夢官方網站圖鑑；口味與棲息是社群表。
+        共 {pokedex.count} 筆。用屬性、喜歡的口味、棲息環境與喜好類篩。種族中文對台灣寶可夢官方網站圖鑑。
       </p>
-      <p class="muted">{pokedex.note_tc}</p>
       <VersionBadge updated={pokedex.updated} />
+      <details class="src-note">
+        <summary>資料來源與圖示說明</summary>
+        <p class="muted">{pokedex.note_tc} 口味與棲息小標為本站自繪，不是其他粉絲站的原畫。</p>
+      </details>
     </header>
 
     <div class="pokedex-filters">
@@ -183,13 +186,24 @@ function waterLabels(mon: { favorites: string[]; favorites_tc: string[] }) {
 </BaseLayout>
 
 <style>
+  .src-note {
+    margin: 0.5rem 0 0;
+    max-width: 42rem;
+  }
+  .src-note summary {
+    cursor: pointer;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+  }
   .pokedex-filters {
     margin: 0 0 1rem;
     padding: 0 0 0.75rem;
     border-bottom: 2px solid var(--ink);
   }
   .filter-set {
-    margin: 0.7rem 0 0;
+    margin: 0.55rem 0 0;
     padding: 0;
     border: 0;
   }
