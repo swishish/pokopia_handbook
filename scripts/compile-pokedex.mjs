@@ -385,9 +385,9 @@ for (const row of pokopia) {
     location_en: row["Primary Location"] || "",
     location_tc: LOCATION_TC[row["Primary Location"]] || row["Primary Location"] || "",
     specialties: [row["Specialty 1"], row["Specialty 2"]].filter(Boolean),
-    image: `/pokedex/${pokemonId}.png`,
-    image_source: "https://github.com/PokeAPI/sprites",
-    image_attr_tc: "識別用精靈圖，PokeAPI Sprites（非官方繪圖）",
+    image: `/pokedex/${pokemonId}.webp`,
+    image_source: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemonId}.png`,
+    image_attr_tc: "PokeAPI Pokémon HOME 渲染圖（識別用，已於本地縮成 WebP）",
     source_url: row["Source URL"] || "",
     portal_url: `https://tw.portal-pokemon.com/play/pokedex/${String(nationalId).padStart(4, "0")}/`,
     pokopia_unique: UNIQUE_NPC.has(nameEnRow),
@@ -410,7 +410,7 @@ const dataset = {
   updated: "2026-10-12",
   game_version: "2.0.1",
   count: species.length,
-  note_tc: "種族中文取自台灣官方圖鑑用語（PokeAPI zh-Hant／台灣寶可夢官方網站圖鑑）。口味與喜好類來自社群表（PokopiaPlanning／Serebii），信心標為社群彙整。縮圖為識別用精靈圖，非商業原畫。",
+  note_tc: "種族中文取自台灣官方圖鑑用語（PokeAPI zh-Hant／台灣寶可夢官方網站圖鑑）。口味、棲息與喜好類來自社群表（PokopiaPlanning／Serebii），信心標為社群彙整。卡片圖為 PokeAPI HOME 渲染縮圖。",
   sources: [
     {
       name: "JEschete/PokopiaPlanning reference/Pokopia.csv",
@@ -425,12 +425,28 @@ const dataset = {
       url: "https://tw.portal-pokemon.com/play/pokedex/",
     },
     {
-      name: "PokeAPI species names (zh-Hant) + sprites",
+      name: "PokeAPI species names (zh-Hant) + HOME sprites",
       url: "https://github.com/PokeAPI/pokeapi",
+    },
+    {
+      name: "PokeAPI Pokémon HOME sprites",
+      url: "https://github.com/PokeAPI/sprites",
+    },
+    {
+      name: "partywhale/pokemon-type-icons（MIT）",
+      url: "https://github.com/partywhale/pokemon-type-icons",
     },
   ],
   types: TYPE_ORDER.filter((id) => typeSet.has(id)).map((id) => ({ id, name_tc: typeSet.get(id) })),
   flavors: FLAVOR_ORDER.filter((id) => flavorSet.has(id)).map((id) => ({ id, name_tc: flavorSet.get(id) })),
+  habitats: [
+    { id: "bright", name_tc: "明亮" },
+    { id: "humid", name_tc: "潮濕" },
+    { id: "dark", name_tc: "陰暗" },
+    { id: "warm", name_tc: "溫暖" },
+    { id: "dry", name_tc: "乾燥" },
+    { id: "cool", name_tc: "涼爽" },
+  ],
   favorite_categories: [...favoriteSet.values()].sort((a, b) => a.name_tc.localeCompare(b.name_tc, "zh-Hant")),
   species,
 };
@@ -438,45 +454,4 @@ const dataset = {
 await writeFile(resolve(root, "src/data/pokedex.json"), `${JSON.stringify(dataset, null, 2)}\n`);
 console.log(`寫入 pokedex.json：${species.length} 筆，未對上 ${unmatched.length}`);
 
-const missingImages = [];
-const queue = [];
-for (const entry of species) {
-  const dest = resolve(imgDir, `${entry.pokemon_id}.png`);
-  try {
-    await readFile(dest);
-  } catch {
-    queue.push(entry);
-  }
-}
-
-console.log(`需下載縮圖 ${queue.length} 張`);
-const CONCURRENCY = 12;
-let index = 0;
-let ok = 0;
-async function worker() {
-  while (index < queue.length) {
-    const current = index;
-    index += 1;
-    const entry = queue[current];
-    const dest = resolve(imgDir, `${entry.pokemon_id}.png`);
-    const urls = [
-      `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${entry.pokemon_id}.png`,
-      `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${entry.national_id}.png`,
-    ];
-    let done = false;
-    for (const url of urls) {
-      try {
-        await download(url, dest);
-        ok += 1;
-        done = true;
-        break;
-      } catch {
-        // try next
-      }
-    }
-    if (!done) missingImages.push(entry.id);
-  }
-}
-await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
-console.log(`縮圖完成 ${ok}，失敗 ${missingImages.length}`);
-if (missingImages.length) console.error("缺圖", missingImages.join(", "));
+console.log("卡片圖請跑：node scripts/upgrade-pokedex-art.mjs（PokeAPI HOME → 256px WebP）");

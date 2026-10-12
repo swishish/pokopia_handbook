@@ -4,17 +4,26 @@ import VersionBadge from "../components/VersionBadge.astro";
 import ConfidenceBadge from "../components/ConfidenceBadge.astro";
 import pokedex from "../data/pokedex.json";
 
-const dex = Number(String(pokedex.species[0]?.dex ?? 0)).toString().padStart(3, "0");
-void dex;
+const WATER_FAVS = new Set(["lots-of-water", "ocean-vibes"]);
+
+function habitatId(mon: { habitat?: string }) {
+  return String(mon.habitat ?? "").toLowerCase();
+}
+
+function waterLabels(mon: { favorites: string[]; favorites_tc: string[] }) {
+  return mon.favorites
+    .map((id, index) => ({ id, label: mon.favorites_tc[index] }))
+    .filter((item) => WATER_FAVS.has(item.id));
+}
 ---
 
-<BaseLayout title="圖鑑" description="依屬性、口味與喜好類篩選 Pokopia 種族。種族中文為台灣官方譯名。">
+<BaseLayout title="圖鑑" description="依屬性、口味、棲息與喜好類篩選 Pokopia 種族。種族中文為台灣官方譯名。">
   <div class="wrap">
     <header class="page-head">
       <p class="kicker">識別用 · 繁中官方譯名</p>
       <h1>圖鑑</h1>
       <p class="lead">
-        共 {pokedex.count} 筆。用屬性、喜歡的口味、喜好類（傢俬／活動）篩。種族中文對台灣寶可夢官方網站圖鑑；口味與喜好是社群表。
+        共 {pokedex.count} 筆。用屬性、喜歡的口味、棲息環境與喜好類篩。種族中文對台灣寶可夢官方網站圖鑑；口味與棲息是社群表。
       </p>
       <p class="muted">{pokedex.note_tc}</p>
       <VersionBadge updated={pokedex.updated} />
@@ -31,7 +40,8 @@ void dex;
         <div class="chips" id="type-chips">
           {
             pokedex.types.map((type) => (
-              <button class="chip" type="button" data-filter="type" data-value={type.id} aria-pressed="false">
+              <button class="chip chip-with-icon" type="button" data-filter="type" data-value={type.id} aria-pressed="false">
+                <img src={`/icons/types/${type.id}.svg`} alt="" width="22" height="22" />
                 {type.name_tc}
               </button>
             ))
@@ -44,7 +54,8 @@ void dex;
         <div class="chips" id="flavor-chips">
           {
             pokedex.flavors.map((flavor) => (
-              <button class="chip" type="button" data-filter="flavor" data-value={flavor.id} aria-pressed="false">
+              <button class="chip chip-with-icon" type="button" data-filter="flavor" data-value={flavor.id} aria-pressed="false">
+                <img src={`/icons/flavors/${flavor.id}.svg`} alt="" width="22" height="22" />
                 {flavor.name_tc}
               </button>
             ))
@@ -52,12 +63,27 @@ void dex;
         </div>
       </fieldset>
 
+      <fieldset class="filter-set">
+        <legend>棲息環境 <span class="muted">明亮、潮溼、陰暗等；與「很多水」分開</span></legend>
+        <div class="chips" id="habitat-chips">
+          {
+            (pokedex.habitats ?? []).map((habitat) => (
+              <button class="chip chip-with-icon" type="button" data-filter="habitat" data-value={habitat.id} aria-pressed="false">
+                <img src={`/icons/habitats/${habitat.id}.svg`} alt="" width="22" height="22" />
+                {habitat.name_tc}
+              </button>
+            ))
+          }
+        </div>
+      </fieldset>
+
       <details class="fav-panel">
-        <summary>喜好類（傢俬／活動）· 與口味分開</summary>
+        <summary>喜好類（傢俬／活動）· 與口味、棲息分開</summary>
         <div class="chips" id="fav-chips">
           {
             pokedex.favorite_categories.map((fav) => (
-              <button class="chip" type="button" data-filter="fav" data-value={fav.id} aria-pressed="false">
+              <button class={`chip${WATER_FAVS.has(fav.id) ? " chip-with-icon" : ""}`} type="button" data-filter="fav" data-value={fav.id} aria-pressed="false">
+                {WATER_FAVS.has(fav.id) ? <img src="/icons/habitats/water.svg" alt="" width="22" height="22" /> : null}
                 {fav.name_tc}
               </button>
             ))
@@ -82,6 +108,7 @@ void dex;
             data-nat={String(mon.national_id)}
             data-types={mon.type_ids.join(" ")}
             data-flavor={mon.flavor_id}
+            data-habitat-id={habitatId(mon)}
             data-favs={mon.favorites.join(" ")}
             data-fav-labels={mon.favorites_tc.join("、")}
             data-habitat={mon.habitat_tc}
@@ -103,14 +130,41 @@ void dex;
             <div class="dex-meta">
               <div class="type-row">
                 {mon.types.map((type, index) => (
-                  <span class={`type-pill type-${mon.type_ids[index]}`}>{type}</span>
+                  <span class={`type-pill type-${mon.type_ids[index]}`}>
+                    <img src={`/icons/types/${mon.type_ids[index]}.svg`} alt="" width="18" height="18" />
+                    {type}
+                  </span>
                 ))}
               </div>
-              {mon.flavor_tc ? <span class="mini-chip">{mon.flavor_tc}</span> : <span class="muted">口味未標</span>}
-              <div class="fav-row">
-                {mon.favorites_tc.slice(0, 3).map((fav) => (
-                  <span class="mini-chip mini-fav">{fav}</span>
+              <div class="pref-row">
+                {mon.flavor_id ? (
+                  <span class="pref-chip flavor-chip">
+                    <img src={`/icons/flavors/${mon.flavor_id}.svg`} alt="" width="18" height="18" />
+                    {mon.flavor_tc}
+                  </span>
+                ) : (
+                  <span class="muted">口味未標</span>
+                )}
+                {mon.habitat_tc ? (
+                  <span class="pref-chip habitat-chip">
+                    <img src={`/icons/habitats/${habitatId(mon)}.svg`} alt="" width="18" height="18" />
+                    {mon.habitat_tc}
+                  </span>
+                ) : null}
+                {waterLabels(mon).map((item) => (
+                  <span class="pref-chip env-chip">
+                    <img src="/icons/habitats/water.svg" alt="" width="18" height="18" />
+                    {item.label}
+                  </span>
                 ))}
+              </div>
+              <div class="fav-row">
+                {mon.favorites_tc
+                  .filter((_, index) => !WATER_FAVS.has(mon.favorites[index]))
+                  .slice(0, 3)
+                  .map((fav) => (
+                    <span class="mini-chip mini-fav">{fav}</span>
+                  ))}
               </div>
               <ConfidenceBadge value={mon.confidence} />
             </div>
@@ -142,6 +196,15 @@ void dex;
   .filter-set legend {
     font-weight: 800;
     margin-bottom: 0.35rem;
+  }
+  .chip-with-icon {
+    gap: 0.35rem;
+    padding-inline: 0.5rem 0.75rem;
+  }
+  .chip-with-icon img {
+    width: 1.35rem;
+    height: 1.35rem;
+    flex-shrink: 0;
   }
   .fav-panel {
     margin-top: 0.7rem;
@@ -175,7 +238,7 @@ void dex;
   }
   .dex-open {
     display: grid;
-    grid-template-columns: 64px 1fr;
+    grid-template-columns: 88px 1fr;
     grid-template-rows: auto auto;
     column-gap: 0.65rem;
     align-items: center;
@@ -192,10 +255,9 @@ void dex;
   .dex-open img,
   .dex-open .thumb-ph {
     grid-row: 1 / span 2;
-    width: 64px;
-    height: 64px;
+    width: 88px;
+    height: 88px;
     object-fit: contain;
-    image-rendering: pixelated;
     background: var(--paper-deep);
     border: 2px solid var(--ink);
   }
@@ -205,25 +267,46 @@ void dex;
     color: var(--ink-muted);
   }
   .type-row,
+  .pref-row,
   .fav-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.3rem;
   }
   .type-pill,
+  .pref-chip,
   .mini-chip {
     display: inline-flex;
     align-items: center;
-    min-height: 1.6rem;
-    padding: 0.05rem 0.4rem;
+    gap: 0.28rem;
+    min-height: 1.7rem;
+    padding: 0.08rem 0.42rem 0.08rem 0.22rem;
     border: 2px solid var(--ink);
     font-size: 0.78rem;
     font-weight: 800;
     background: var(--paper);
   }
-  .mini-fav {
+  .type-pill img,
+  .pref-chip img {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex-shrink: 0;
+  }
+  .mini-chip {
+    padding: 0.05rem 0.4rem;
     font-weight: 600;
+  }
+  .mini-fav {
     background: var(--paper-deep);
+  }
+  .flavor-chip {
+    background: #f6e6d4;
+  }
+  .habitat-chip {
+    background: #e8efe4;
+  }
+  .env-chip {
+    background: #dce8f3;
   }
   .type-fire { background: #f3d4c8; }
   .type-water { background: #d4e4f3; }
@@ -256,6 +339,23 @@ void dex;
   .dex-dialog-body {
     padding: 1rem;
   }
+  .dex-dialog-body img.dialog-thumb {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border: 2px solid var(--ink);
+    background: var(--paper-deep);
+  }
+  @media (max-width: 719px) {
+    .dex-open {
+      grid-template-columns: 72px 1fr;
+    }
+    .dex-open img,
+    .dex-open .thumb-ph {
+      width: 72px;
+      height: 72px;
+    }
+  }
   @media (min-width: 720px) {
     .pokedex-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -280,10 +380,11 @@ void dex;
   const selected = {
     type: new Set<string>(),
     flavor: new Set<string>(),
+    habitat: new Set<string>(),
     fav: new Set<string>(),
   };
 
-  function toggle(group: "type" | "flavor" | "fav", value: string, button: HTMLButtonElement) {
+  function toggle(group: "type" | "flavor" | "habitat" | "fav", value: string, button: HTMLButtonElement) {
     if (selected[group].has(value)) selected[group].delete(value);
     else selected[group].add(value);
     button.setAttribute("aria-pressed", String(selected[group].has(value)));
@@ -298,10 +399,11 @@ void dex;
       const favs = (card.dataset.favs ?? "").split(" ").filter(Boolean);
       const matchType = selected.type.size === 0 || types.some((id) => selected.type.has(id));
       const matchFlavor = selected.flavor.size === 0 || selected.flavor.has(card.dataset.flavor ?? "");
+      const matchHabitat = selected.habitat.size === 0 || selected.habitat.has(card.dataset.habitatId ?? "");
       const matchFav = selected.fav.size === 0 || favs.some((id) => selected.fav.has(id));
       const hay = `${card.dataset.tc} ${card.dataset.en} ${card.dataset.jp} ${card.dataset.dex} ${card.dataset.nat}`.toLowerCase();
       const matchQuery = !query || hay.includes(query) || (card.dataset.dex ?? "").padStart(3, "0").includes(query.replace("#", ""));
-      const show = matchType && matchFlavor && matchFav && matchQuery;
+      const show = matchType && matchFlavor && matchHabitat && matchFav && matchQuery;
       card.hidden = !show;
       if (show) visible += 1;
     }
@@ -311,7 +413,7 @@ void dex;
 
   document.querySelectorAll<HTMLButtonElement>("[data-filter]").forEach((button) => {
     button.addEventListener("click", () => {
-      const group = button.dataset.filter as "type" | "flavor" | "fav";
+      const group = button.dataset.filter as "type" | "flavor" | "habitat" | "fav";
       const value = button.dataset.value ?? "";
       toggle(group, value, button);
     });
@@ -321,20 +423,21 @@ void dex;
 
   function openCard(card: HTMLElement) {
     if (!dialog || !dialogBody) return;
-    const img = card.querySelector("img")?.getAttribute("src") ?? "";
+    const img = card.querySelector(".dex-open img")?.getAttribute("src") ?? "";
     const types = [...card.querySelectorAll(".type-pill")].map((el) => el.outerHTML).join(" ");
-    const favLabels = card.dataset.favLabels ?? "";
-    const extraFav = "";
+    const prefs = [...card.querySelectorAll(".pref-chip")].map((el) => el.outerHTML).join(" ") || "未標";
+    const furniture = [...card.querySelectorAll(".mini-fav")].map((el) => el.outerHTML).join(" ") || "未標";
     dialogBody.innerHTML = `
       <p class="kicker">${card.dataset.unique ? "本作用例" : "種族"}</p>
       <p class="dex-no">#${(card.dataset.dex ?? "").padStart(3, "0")} · 全國 ${card.dataset.nat}</p>
       <h2 style="margin:.2rem 0 .5rem">${card.dataset.tc}</h2>
       <p class="muted">${card.dataset.jp} · ${card.dataset.en}</p>
-      ${img ? `<img src="${img}" alt="" width="96" height="96" style="image-rendering:pixelated;border:2px solid #1a1a1a;background:#ebe3d1">` : ""}
+      ${img ? `<img class="dialog-thumb" src="${img}" alt="" width="160" height="160">` : ""}
       <p>${types}</p>
-      <p><strong>喜歡的口味</strong>　${card.querySelector(".mini-chip:not(.mini-fav)")?.textContent ?? "未標"}</p>
-      <p><strong>喜好類</strong>　${favLabels || "未標"}${extraFav}</p>
-      <p><strong>棲息</strong>　${card.dataset.habitat ?? "—"}</p>
+      <p><strong>口味／棲息</strong></p>
+      <p class="pref-row">${prefs}</p>
+      <p><strong>喜好類</strong></p>
+      <p class="fav-row">${furniture}</p>
       <p><strong>主要地區</strong>　${card.dataset.location ?? "—"}</p>
       <p class="muted">${card.dataset.attr ?? ""}</p>
       <p class="button-row">

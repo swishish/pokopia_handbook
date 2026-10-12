@@ -10,6 +10,7 @@
     "dev": "astro dev --host 127.0.0.1 --port 4721",
     "validate": "node scripts/validate-data.mjs",
     "data:pokedex": "node scripts/compile-pokedex.mjs",
+    "data:pokedex-art": "node scripts/upgrade-pokedex-art.mjs",
     "build": "node scripts/validate-data.mjs && astro build",
     "preview": "astro preview --host 127.0.0.1 --port 4721",
     "astro": "astro"

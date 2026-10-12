@@ -9,3 +9,5 @@
 - 括號內的樣子／本作用例（帕底亞的樣子、博士、尖峰、青苔、音響等）是形態或 NPC 標籤，不是官網種族本名。
 
 本站不重抄官方圖鑑敘述。核對日：2026-10-12。
+
+圖鑑卡片美術：PokeAPI `other/home` 渲染圖，本地縮成 256px WebP。屬性圓標 vendored 自 partywhale/pokemon-type-icons（MIT）。口味與棲息小標為本站自繪。不轉製其他粉絲站的專有圖示。詳見 `pokedex-art.md`。
