@@ -1,0 +1,218 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VersionBadge from "../../components/VersionBadge.astro";
+import ConfidenceBadge from "../../components/ConfidenceBadge.astro";
+import DexChips from "../../components/DexChips.astro";
+import pokedex from "../../data/pokedex.json";
+import {
+  likedTags,
+  locationTc,
+  padDex,
+  padNational,
+  specialtyTc,
+  speciesHref,
+  type PokedexSpecies,
+} from "../../lib/pokedex";
+
+export function getStaticPaths() {
+  return (pokedex.species as PokedexSpecies[]).map((mon) => ({
+    params: { id: mon.id },
+    props: { mon },
+  }));
+}
+
+const { mon } = Astro.props as { mon: PokedexSpecies };
+const species = pokedex.species as PokedexSpecies[];
+const index = species.findIndex((item) => item.id === mon.id);
+const prev = index > 0 ? species[index - 1] : null;
+const next = index >= 0 && index < species.length - 1 ? species[index + 1] : null;
+const tags = likedTags(mon);
+const place = locationTc(mon);
+const specialties = (mon.specialties ?? []).filter((name) => name && name !== "???");
+---
+
+<BaseLayout
+  title={`${mon.name_tc} · 圖鑑`}
+  description={`${mon.name_tc}的棲息、口味、喜好類與專長速查。種族中文為台灣官方譯名。`}
+>
+  <div class="wrap">
+    <p class="button-row" style="margin: 0 0 1rem;">
+      <a class="button" href="/pokedex/">回圖鑑</a>
+    </p>
+
+    <header class="dex-hero">
+      <div class="dex-hero-art">
+        {
+          mon.image ? (
+            <img src={mon.image} alt="" width="200" height="200" />
+          ) : (
+            <div class="thumb-ph">無圖</div>
+          )
+        }
+      </div>
+      <div class="dex-hero-copy">
+        <p class="kicker">{mon.pokopia_unique ? "本作用例" : "種族詳情"}</p>
+        <p class="dex-no">#{padDex(mon.dex)} · 全國 {padNational(mon.national_id)}</p>
+        <h1>{mon.name_tc}</h1>
+        <p class="muted">{mon.name_jp} · {mon.name_en}</p>
+        <DexChips mon={mon} showFlavor={false} showHabitat={false} showWater={false} />
+        <VersionBadge updated={pokedex.updated} />
+        <p class="meta-row" style="margin-top: 0.55rem;">
+          <ConfidenceBadge value={mon.confidence} />
+        </p>
+      </div>
+    </header>
+
+    <section class="grid-2 dex-facts" aria-label="詳情欄">
+      <article class="card">
+        <h2>棲息／氣候</h2>
+        <DexChips mon={mon} showTypes={false} showFlavor={false} />
+        <p>
+          <strong>主要地區</strong>　{place || "未標"}
+        </p>
+        <p class="muted">氣候是理想棲息標籤。很多水／海洋氛圍算環境喜好，和明亮、潮溼分開。</p>
+      </article>
+
+      <article class="card">
+        <h2>喜歡的口味</h2>
+        <DexChips mon={mon} showTypes={false} showHabitat={false} showWater={false} />
+        <p>
+          對菜單見
+          <a href="/food/">食物與口味</a>
+          。
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>喜好類</h2>
+        {
+          tags.length ? (
+            <div class="fav-row">
+              {tags.map((tag) => (
+                <span class="mini-chip mini-fav">{tag.label}</span>
+              ))}
+            </div>
+          ) : (
+            <p class="muted">未標傢俬／活動喜好。</p>
+          )
+        }
+        <p class="muted">社群表整理，進遊戲再核一次。</p>
+      </article>
+
+      <article class="card">
+        <h2>專長</h2>
+        {
+          specialties.length ? (
+            <div class="fav-row">
+              {specialties.map((name) => (
+                <span class="mini-chip mini-skill">
+                  {specialtyTc(name)}
+                  <span class="muted">　{name}</span>
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p class="muted">未標專長（得意なこと）。</p>
+          )
+        }
+        <p class="muted">帶在身邊時幫忙的工作。譯名對社群／日文攻略，不是官方圖鑑敘述。</p>
+      </article>
+    </section>
+
+    <p class="muted" style="margin: 1.2rem 0 0.8rem;">{mon.image_attr_tc}</p>
+    <p class="button-row">
+      {
+        mon.portal_url ? (
+          <a class="button button-solid" href={mon.portal_url} rel="noopener noreferrer">
+            台灣官方圖鑑
+          </a>
+        ) : null
+      }
+      {
+        mon.source_url ? (
+          <a class="button" href={mon.source_url} rel="noopener noreferrer">
+            Serebii
+          </a>
+        ) : null
+      }
+    </p>
+
+    <nav class="dex-pager" aria-label="相鄰種族">
+      {
+        prev ? (
+          <a class="button" href={speciesHref(prev.id)}>
+            上一筆　{prev.name_tc}
+          </a>
+        ) : (
+          <span class="muted">沒有上一筆</span>
+        )
+      }
+      {
+        next ? (
+          <a class="button" href={speciesHref(next.id)}>
+            下一筆　{next.name_tc}
+          </a>
+        ) : (
+          <span class="muted">沒有下一筆</span>
+        )
+      }
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .dex-hero {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+    max-width: 48rem;
+  }
+
+  .dex-hero-art img,
+  .dex-hero-art .thumb-ph {
+    width: min(200px, 100%);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+    border: 2px solid var(--ink);
+    background: var(--paper-deep);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .dex-hero-copy h1 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.7rem, 4vw, 2.2rem);
+    line-height: 1.25;
+  }
+
+  .dex-hero-copy .dex-no {
+    margin: 0 0 0.25rem;
+  }
+
+  .dex-facts .card h2 {
+    margin: 0 0 0.55rem;
+    font-size: 1.15rem;
+  }
+
+  .dex-facts .card p {
+    margin: 0.7rem 0 0;
+  }
+
+  .mini-skill {
+    background: var(--accent-soft);
+  }
+
+  .dex-pager {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+  }
+
+  @media (min-width: 720px) {
+    .dex-hero {
+      grid-template-columns: 200px minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+</style>

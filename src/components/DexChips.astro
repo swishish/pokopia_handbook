@@ -1,0 +1,63 @@
+---
+import { habitatId, waterLabels, type PokedexSpecies } from "../lib/pokedex";
+
+type Props = {
+  mon: PokedexSpecies;
+  showTypes?: boolean;
+  showFlavor?: boolean;
+  showHabitat?: boolean;
+  showWater?: boolean;
+};
+
+const {
+  mon,
+  showTypes = true,
+  showFlavor = true,
+  showHabitat = true,
+  showWater = true,
+} = Astro.props;
+const water = waterLabels(mon);
+---
+
+{
+  showTypes && mon.types.length ? (
+    <div class="type-row">
+      {mon.types.map((type, index) => (
+        <span class={`type-pill type-${mon.type_ids[index]}`}>
+          <img src={`/icons/types/${mon.type_ids[index]}.svg`} alt="" width="18" height="18" />
+          {type}
+        </span>
+      ))}
+    </div>
+  ) : null
+}
+{
+  showFlavor || showHabitat || (showWater && water.length) ? (
+    <div class="pref-row">
+      {showFlavor ? (
+        mon.flavor_id ? (
+          <span class="pref-chip flavor-chip">
+            <img src={`/icons/flavors/${mon.flavor_id}.svg`} alt="" width="18" height="18" />
+            {mon.flavor_tc}
+          </span>
+        ) : (
+          <span class="muted">口味未標</span>
+        )
+      ) : null}
+      {showHabitat && mon.habitat_tc ? (
+        <span class="pref-chip habitat-chip">
+          <img src={`/icons/habitats/${habitatId(mon)}.svg`} alt="" width="18" height="18" />
+          {mon.habitat_tc}
+        </span>
+      ) : null}
+      {showWater
+        ? water.map((item) => (
+            <span class="pref-chip env-chip">
+              <img src="/icons/habitats/water.svg" alt="" width="18" height="18" />
+              {item.label}
+            </span>
+          ))
+        : null}
+    </div>
+  ) : null
+}

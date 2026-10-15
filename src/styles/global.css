@@ -241,6 +241,81 @@ a:hover {
   background: var(--unverified-bg);
 }
 
+.dex-no {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--ink-muted);
+}
+
+.type-row,
+.pref-row,
+.fav-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.type-pill,
+.pref-chip,
+.mini-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  min-height: 1.7rem;
+  padding: 0.08rem 0.42rem 0.08rem 0.22rem;
+  border: 2px solid var(--ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: var(--paper);
+}
+
+.type-pill img,
+.pref-chip img {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+}
+
+.mini-chip {
+  padding: 0.05rem 0.4rem;
+  font-weight: 600;
+}
+
+.mini-fav {
+  background: var(--paper-deep);
+}
+
+.flavor-chip {
+  background: #f6e6d4;
+}
+
+.habitat-chip {
+  background: #e8efe4;
+}
+
+.env-chip {
+  background: #dce8f3;
+}
+
+.type-fire { background: #f3d4c8; }
+.type-water { background: #d4e4f3; }
+.type-grass { background: #d9eddf; }
+.type-electric { background: #f3ebc8; }
+.type-ice { background: #dcecf3; }
+.type-fighting { background: #efd4c4; }
+.type-poison { background: #e6d4ef; }
+.type-ground { background: #eadcc8; }
+.type-flying { background: #dde4f3; }
+.type-psychic { background: #f3d4e4; }
+.type-bug { background: #e4edc8; }
+.type-rock { background: #e4dcc8; }
+.type-ghost { background: #ddd4e8; }
+.type-dragon { background: #d4d8f0; }
+.type-dark { background: #e4dcd4; }
+.type-steel { background: #e0e4e8; }
+.type-fairy { background: #f3dce8; }
+.type-normal { background: #eeeae0; }
+
 .card,
 .shortcut,
 .rule-card,
@@ -545,7 +620,8 @@ th {
 
   .card,
   .rule-card,
-  .island-card {
+  .island-card,
+  .dex-hero {
     break-inside: avoid;
     box-shadow: none;
   }

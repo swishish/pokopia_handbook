@@ -12,5 +12,6 @@ export const NAV = [
 
 export function isCurrentPath(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/" || pathname === "";
-  return pathname === href || pathname === href.slice(0, -1);
+  const base = href.endsWith("/") ? href : `${href}/`;
+  return pathname === href || pathname === href.slice(0, -1) || pathname.startsWith(base);
 }
