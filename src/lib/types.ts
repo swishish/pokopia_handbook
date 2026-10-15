@@ -63,6 +63,45 @@ export type DreamIslandsFile = {
   islands: DreamIsland[];
 };
 
+export type CloudIslandCategory = "official" | "community";
+export type CloudIslandStatus = "active" | "ended";
+
+export type CloudIsland = {
+  id: string;
+  code: string;
+  name_tc: string;
+  note_tc: string;
+  category: CloudIslandCategory;
+  status: CloudIslandStatus;
+  ended_at?: string;
+  preview?: string;
+  preview_kind?: "illustration" | "promo" | "screenshot";
+  preview_attr_tc?: string;
+  preview_sources?: CloudIslandSource[];
+};
+
+export type CloudIslandSource = {
+  name_tc: string;
+  url: string;
+};
+
+export type CloudIslandsFile = {
+  title_tc: string;
+  game_version: string;
+  updated: string;
+  last_checked: string;
+  kicker_tc: string;
+  lead_tc: string;
+  howto_title_tc: string;
+  howto: string[];
+  howto_notes_tc: string[];
+  disclaimer_tc: string;
+  code_note_tc: string;
+  preview_note_tc: string;
+  sources: CloudIslandSource[];
+  islands: CloudIsland[];
+};
+
 export type ToolTask = {
   task_tc: string;
   primary: string;

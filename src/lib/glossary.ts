@@ -53,6 +53,16 @@ export function buildGlossary(): GlossaryTerm[] {
     });
   }
 
+  for (const term of extra.cloud) {
+    terms.push({
+      id: `cloud-${term.id}`,
+      name_tc: term.name_tc,
+      name_jp: term.name_jp,
+      name_en: term.name_en,
+      category_tc: "雲島",
+    });
+  }
+
   return terms;
 }
 

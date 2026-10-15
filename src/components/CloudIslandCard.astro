@@ -1,0 +1,188 @@
+---
+import type { CloudIsland } from "../lib/types";
+
+type Props = {
+  island: CloudIsland;
+  kind: "official" | "community" | "ended";
+};
+
+const { island, kind } = Astro.props;
+
+function categoryLabel(item: CloudIsland) {
+  return item.category === "official" ? "官方" : "社群";
+}
+
+function categoryClass(item: CloudIsland) {
+  return item.category === "official" ? "badge badge-official" : "badge badge-community";
+}
+
+const preview = island.preview;
+const sources = island.preview_sources ?? [];
+const ended = kind === "ended";
+---
+
+<article
+  class:list={["island-card", "cloud-card", ended && "island-card-ended"]}
+  data-kind={kind}
+  data-name={island.name_tc}
+  data-code={island.code}
+  data-note={`${island.note_tc} ${island.ended_at ?? ""}`}
+>
+  <figure class="island-preview">
+    {
+      preview ? (
+        <img
+          src={preview}
+          alt=""
+          width="320"
+          height="180"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="thumb-ph" aria-hidden="true">
+          預覽示意稍後加入
+        </div>
+      )
+    }
+    {
+      sources.length ? (
+        <figcaption class="preview-src">
+          資料來源
+          {sources.map((source, index) => (
+            <a href={source.url} target="_blank" rel="noopener noreferrer" title={source.name_tc}>
+              {index + 1}
+            </a>
+          ))}
+        </figcaption>
+      ) : island.preview_attr_tc ? (
+        <figcaption class="preview-src">{island.preview_attr_tc}</figcaption>
+      ) : null
+    }
+  </figure>
+  <div class="cloud-card-body">
+    <div class="meta-row" style="margin-top: 0;">
+      {ended ? <span class="badge badge-ended">已結束</span> : null}
+      <span class={categoryClass(island)}>{categoryLabel(island)}</span>
+    </div>
+    <h3>{island.name_tc}</h3>
+    <div class="code-row">
+      <code class="island-code">{island.code}</code>
+      <button class="button copy-code" type="button" data-copy={island.code}>
+        複製
+      </button>
+    </div>
+    <p>
+      {island.note_tc}
+      {ended && island.ended_at ? ` 至 ${island.ended_at}。` : ""}
+    </p>
+  </div>
+</article>
+
+<style>
+  .cloud-card {
+    padding: 0;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .island-preview {
+    margin: 0;
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper-deep);
+  }
+
+  .island-preview img,
+  .island-preview .thumb-ph {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .island-preview .thumb-ph {
+    min-height: 0;
+    font-size: 0.82rem;
+  }
+
+  .preview-src {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.45rem;
+    margin: 0;
+    padding: 0.35rem 0.75rem 0.45rem;
+    border-top: 1px dashed var(--ink);
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+  }
+
+  .preview-src a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.45rem;
+    min-height: 1.45rem;
+    padding: 0 0.28rem;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  .preview-src a:hover,
+  .preview-src a:focus-visible {
+    background: var(--accent-soft);
+  }
+
+  .cloud-card-body {
+    padding: 0.85rem 1.05rem 1rem;
+  }
+
+  .cloud-card h3 {
+    margin: 0.55rem 0 0.45rem;
+    font-size: 1.15rem;
+  }
+
+  .cloud-card p {
+    margin: 0.55rem 0 0;
+  }
+
+  .code-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .island-code {
+    display: inline-block;
+    padding: 0.2rem 0.15rem;
+    font-family: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    word-break: keep-all;
+  }
+
+  .copy-code {
+    min-width: 4.4rem;
+  }
+
+  .island-card-ended {
+    box-shadow: none;
+    background: var(--paper-deep);
+  }
+
+  .island-card-ended .island-preview img {
+    filter: grayscale(0.35);
+    opacity: 0.88;
+  }
+
+  .island-card-ended .island-code,
+  .island-card-ended h3 {
+    color: var(--ink-muted);
+  }
+</style>

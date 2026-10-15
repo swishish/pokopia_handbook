@@ -1,7 +1,7 @@
 {
   "title_tc": "工具選擇器",
-  "updated": "2026-10-12",
-  "last_checked": "2026-10-12",
+  "updated": "2026-10-13",
+  "last_checked": "2026-10-13",
   "by_task": [
     {
       "task_tc": "房屋高樓",
@@ -38,6 +38,12 @@
       "primary": "本站 夢島",
       "alt": "Serebii / Game8",
       "why_tc": "繁中速查＋關鍵資源"
+    },
+    {
+      "task_tc": "參觀雲島",
+      "primary": "本站 雲島",
+      "alt": "PokopiaMap Islands",
+      "why_tc": "先抄官方與精選社群地址，再去外部地圖看即時卡片"
     }
   ],
   "directory": [
@@ -52,6 +58,20 @@
       "best_for_tc": "3D 建造、材料清單、玻璃／高樓",
       "limitations_tc": "房屋辨識須遊戲內驗證；清除瀏覽器可能丟本機專案",
       "last_checked": "2026-10-12"
+    },
+    {
+      "id": "pokopiamap-islands",
+      "name": "PokopiaMap Islands",
+      "url": "https://pokopiamap.com/zh/islands",
+      "lang": [
+        "EN",
+        "JP",
+        "ZH"
+      ],
+      "cost": "free",
+      "best_for_tc": "雲島與主島即時卡片、印章與商店",
+      "limitations_tc": "主島視窗有時效；雲島內容仍可能變",
+      "last_checked": "2026-10-13"
     },
     {
       "id": "pokopiamap-island",

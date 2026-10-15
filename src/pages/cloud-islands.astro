@@ -1,0 +1,198 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VersionBadge from "../components/VersionBadge.astro";
+import CloudIslandCard from "../components/CloudIslandCard.astro";
+import cloudIslands from "../data/cloud-islands.json";
+import type { CloudIslandsFile } from "../lib/types";
+
+const data = cloudIslands as CloudIslandsFile;
+
+const official = data.islands.filter((island) => island.category === "official" && island.status === "active");
+const community = data.islands.filter((island) => island.category === "community" && island.status === "active");
+const ended = data.islands.filter((island) => island.status === "ended");
+---
+
+<BaseLayout title={data.title_tc} description="官方與精選社群雲島地址。虛擬模式參觀，不影響對方島。">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">{data.kicker_tc}</p>
+      <h1>{data.title_tc}</h1>
+      <p class="lead">{data.lead_tc}</p>
+      <p class="muted">{data.code_note_tc}</p>
+      <p class="muted">{data.preview_note_tc}</p>
+      <VersionBadge updated={data.updated} />
+    </header>
+
+    <section class="stack cloud-howto" aria-labelledby="cloud-howto-heading">
+      <article class="card">
+        <h2 id="cloud-howto-heading">{data.howto_title_tc}</h2>
+        <ol class="howto-list">
+          {data.howto.map((step) => <li>{step}</li>)}
+        </ol>
+        {
+          data.howto_notes_tc.map((note) => (
+            <p class="muted" style="margin: 0.45rem 0 0;">
+              {note}
+            </p>
+          ))
+        }
+      </article>
+    </section>
+
+    <div class="filter-bar">
+      <div class="chips" role="group" aria-label="依類型篩選">
+        <button class="chip" type="button" data-kind="all" aria-pressed="true">全部</button>
+        <button class="chip" type="button" data-kind="official" aria-pressed="false">官方</button>
+        <button class="chip" type="button" data-kind="community" aria-pressed="false">社群</button>
+        <button class="chip" type="button" data-kind="ended" aria-pressed="false">已結束</button>
+      </div>
+      <label>
+        <span class="muted">搜尋島名或地址</span>
+        <input class="search-input" id="cloud-q" type="search" placeholder="例如：PRMQ、看板、IKEA" autocomplete="off" />
+      </label>
+    </div>
+
+    <p id="cloud-count" class="muted" aria-live="polite"></p>
+    <div id="cloud-empty" class="empty" hidden>沒有符合的雲島。試其他關鍵字，或改回全部。</div>
+
+    <section class="cloud-section" data-section="official" aria-labelledby="official-heading">
+      <h2 id="official-heading">官方／精選</h2>
+      <p class="muted section-lead">仍可當參觀起點。進遊戲前再核一次。</p>
+      <div class="islands">
+        {official.map((island) => <CloudIslandCard island={island} kind="official" />)}
+      </div>
+    </section>
+
+    <section class="cloud-section" data-section="community" aria-labelledby="community-heading">
+      <h2 id="community-heading">社群（設計靈感）</h2>
+      <p class="muted section-lead">標「社群」不是官方島。內容與開關可能隨時變。</p>
+      <div class="islands">
+        {community.map((island) => <CloudIslandCard island={island} kind="community" />)}
+      </div>
+    </section>
+
+    <section class="cloud-section" data-section="ended" aria-labelledby="ended-heading">
+      <h2 id="ended-heading">已結束</h2>
+      <p class="muted section-lead">只作紀錄，不要當現役地址。</p>
+      <div class="islands">
+        {ended.map((island) => <CloudIslandCard island={island} kind="ended" />)}
+      </div>
+    </section>
+
+    <section class="stack" style="margin-top: 1.6rem;" aria-labelledby="cloud-links-heading">
+      <article class="card">
+        <h2 id="cloud-links-heading">外部目錄</h2>
+        <p>要看更完整或即時的清單，開新分頁到這些粉絲站。</p>
+        <p class="button-row">
+          {
+            data.sources.map((source) => (
+              <a class="button" href={source.url} target="_blank" rel="noopener noreferrer">
+                {source.name_tc}
+              </a>
+            ))
+          }
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>免責</h2>
+        <p>{data.disclaimer_tc}</p>
+      </article>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .cloud-howto,
+  .cloud-section {
+    margin-bottom: 1.6rem;
+  }
+
+  .cloud-section h2,
+  .cloud-howto h2,
+  .card h2 {
+    margin: 0 0 0.45rem;
+    font-size: 1.2rem;
+  }
+
+  .section-lead {
+    margin: 0 0 0.85rem;
+  }
+
+  .howto-list {
+    margin: 0.2rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .howto-list li + li {
+    margin-top: 0.35rem;
+  }
+</style>
+
+<script>
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".chip[data-kind]"));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".island-card[data-kind]"));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>(".cloud-section"));
+  const search = document.querySelector<HTMLInputElement>("#cloud-q");
+  const empty = document.querySelector<HTMLElement>("#cloud-empty");
+  const count = document.querySelector<HTMLElement>("#cloud-count");
+  const copyButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-copy]"));
+
+  let kind = "all";
+
+  function haystack(card: HTMLElement) {
+    return [card.dataset.name, card.dataset.code, card.dataset.note, card.dataset.kind].join(" ").toLowerCase();
+  }
+
+  function apply() {
+    const query = (search?.value ?? "").trim().toLowerCase().replace(/[-]/g, " ");
+    let visible = 0;
+
+    for (const card of cards) {
+      const matchKind = kind === "all" || card.dataset.kind === kind;
+      const hay = haystack(card).replace(/[-]/g, " ");
+      const matchQuery = !query || hay.includes(query) || hay.replace(/\s/g, "").includes(query.replace(/\s/g, ""));
+      const show = matchKind && matchQuery;
+      card.hidden = !show;
+      if (show) visible += 1;
+    }
+
+    for (const section of sections) {
+      const anyVisible = Array.from(section.querySelectorAll<HTMLElement>(".island-card")).some((card) => !card.hidden);
+      section.hidden = !anyVisible;
+    }
+
+    if (empty) empty.hidden = visible !== 0;
+    if (count) count.textContent = `顯示 ${visible} 筆`;
+  }
+
+  for (const chip of chips) {
+    chip.addEventListener("click", () => {
+      kind = chip.dataset.kind ?? "all";
+      for (const other of chips) {
+        other.setAttribute("aria-pressed", String(other === chip));
+      }
+      apply();
+    });
+  }
+
+  search?.addEventListener("input", apply);
+
+  for (const button of copyButtons) {
+    const original = button.textContent ?? "複製";
+    button.addEventListener("click", async () => {
+      const code = button.dataset.copy ?? "";
+      try {
+        await navigator.clipboard.writeText(code);
+        button.textContent = "已複製";
+      } catch {
+        button.textContent = "複製失敗";
+      }
+      window.setTimeout(() => {
+        button.textContent = original;
+      }, 1600);
+    });
+  }
+
+  apply();
+</script>

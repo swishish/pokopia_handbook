@@ -1,0 +1,429 @@
+{
+  "title_tc": "雲島地址",
+  "game_version": "2.0.1",
+  "updated": "2026-10-13",
+  "last_checked": "2026-10-13",
+  "kicker_tc": "虛擬模式 · 地址速查",
+  "lead_tc": "用神秘護目鏡進虛擬模式，參觀官方與精選社群雲島。地址寫成四加四、中間空一格。這頁是連線參觀用的雲島，不是圖鑑棲息地「雲之島」，也不是每日重置的夢島。",
+  "howto_title_tc": "怎麼去",
+  "howto": [
+    "把環境等級升到 3（荒野／乾巴巴荒野的寶可夢中心一帶）。",
+    "到 PC 商店購買「神秘護目鏡」。",
+    "打開背包使用護目鏡。",
+    "輸入雲島地址。",
+    "以虛擬模式參觀。需 Nintendo Switch Online。"
+  ],
+  "howto_notes_tc": [
+    "虛擬模式不會改動對方島。",
+    "社群島可能隨時關閉、改內容或失效；進遊戲前再核一次。"
+  ],
+  "disclaimer_tc": "本頁是非商業粉絲百科整理，不是任天堂或寶可夢公司官方目錄。地址會變。標「社群」的不是 Nintendo／TPC 官方島。已結束的只作紀錄，不要當現役地址。",
+  "code_note_tc": "地址格式與 pokopiaguide、任天堂公開稿一致：四碼＋空格＋四碼。部分社群文用連字號或連寫，本站一律空格。",
+  "preview_note_tc": "卡片縮圖先用攻略站／社群公開截圖佔位。圖下「資料來源」的編號連到原頁。之後可換成自己的 Switch 截圖，JSON 的 preview 與 preview_sources 一併改。",
+  "sources": [
+    {
+      "name_tc": "Pokopia 攻略站",
+      "url": "https://pokopiaguide.com/zh/guides/public-island-codes-guide"
+    },
+    {
+      "name_tc": "PokopiaMap 雲島",
+      "url": "https://pokopiamap.com/zh/islands"
+    }
+  ],
+  "islands": [
+    {
+      "id": "info-bureau",
+      "code": "PXQC G03S",
+      "name_tc": "寶可夢情報局小鎮",
+      "note_tc": "永久展示；開發組與情報局公開的社群街道。",
+      "category": "official",
+      "status": "active",
+      "preview": "/cloud-islands/info-bureau.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "hanachan",
+      "code": "MYRS 615H",
+      "name_tc": "はなちゃんじま",
+      "note_tc": "花江夏樹；四棟住宅。",
+      "category": "official",
+      "status": "active",
+      "preview": "/cloud-islands/hanachan.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "yummyyummy",
+      "code": "03X3 H83D",
+      "name_tc": "YUMMYYUMMY島",
+      "note_tc": "亞洲美食主題。",
+      "category": "official",
+      "status": "active",
+      "preview": "/cloud-islands/yummyyummy.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "carapichi",
+      "code": "0XGP 4N31",
+      "name_tc": "からぴちとう",
+      "note_tc": "カラフルピーチ聯動島。",
+      "category": "official",
+      "status": "active",
+      "preview": "/cloud-islands/carapichi.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "dozle",
+      "code": "BVLC 8WX6",
+      "name_tc": "ドズルじま",
+      "note_tc": "ドズル社聯動島。",
+      "category": "official",
+      "status": "active",
+      "preview": "/cloud-islands/dozle.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "corocoro",
+      "code": "MJ6X PRMQ",
+      "name_tc": "CoroCoro Island",
+      "note_tc": "稀有物展示。部分來源誤寫 RRMQ；本站依 pokopiaguide 採 PRMQ。",
+      "category": "official",
+      "status": "active",
+      "preview": "/cloud-islands/corocoro.jpg",
+      "preview_kind": "promo",
+      "preview_attr_tc": "攻略站轉載的公開宣傳圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        }
+      ]
+    },
+    {
+      "id": "pokemonxp-worlds",
+      "code": "JW7M XKP2",
+      "name_tc": "PokémonXP & Worlds 主題島",
+      "note_tc": "PokémonXP 與世界賽主題；2026-08-29 起公開，尚未公告結束日。",
+      "category": "official",
+      "status": "active",
+      "preview": "/cloud-islands/pokemonxp-worlds.jpg",
+      "preview_kind": "promo",
+      "preview_attr_tc": "攻略站轉載的公開宣傳圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "ikea",
+      "code": "0SJ8 5TRX",
+      "name_tc": "IKEA",
+      "note_tc": "IKEA Japan 聯動島。",
+      "category": "official",
+      "status": "ended",
+      "ended_at": "2026-06-30",
+      "preview": "/cloud-islands/ikea.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "eiko",
+      "code": "QBRK 7FVM",
+      "name_tc": "EIKO 城",
+      "note_tc": "官方公開展示島。",
+      "category": "official",
+      "status": "ended",
+      "ended_at": "2026-08-12",
+      "preview": "/cloud-islands/eiko.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "sashihara",
+      "code": "MGL4 83P4",
+      "name_tc": "さしはら島",
+      "note_tc": "指原莉乃的度假風島。",
+      "category": "official",
+      "status": "ended",
+      "ended_at": "2026-08-12",
+      "preview": "/cloud-islands/sashihara.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "Nintendo DREAM WEB",
+          "url": "https://www.ndw.jp/pokopoke-game-260510/"
+        },
+        {
+          "name_tc": "Serebii Cloud Islands",
+          "url": "https://www.serebii.net/pokemonpokopia/cloudislands.shtml"
+        },
+        {
+          "name_tc": "PocketMonsters.Net",
+          "url": "https://www.pocketmonsters.net/content/Pokopia_Cloud_Island_Codes"
+        }
+      ]
+    },
+    {
+      "id": "rare-items",
+      "code": "6DXL PD6F",
+      "name_tc": "稀有道具／像素藝術展示",
+      "note_tc": "非官方，內容可能變。部分文用 6DXL-PD6F。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/rare-items.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        },
+        {
+          "name_tc": "r/Pokopia",
+          "url": "https://www.reddit.com/r/Pokopia/comments/1vzeemp/6dxlpd6f_is_a_masterpiece/"
+        }
+      ]
+    },
+    {
+      "id": "nenrin",
+      "code": "GR3W BCC3",
+      "name_tc": "ねんりんしま",
+      "note_tc": "和風建築，空中有烈空坐。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/nenrin.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    },
+    {
+      "id": "horsea-aqua",
+      "code": "56L1 Y3NT",
+      "name_tc": "HorseaAqua",
+      "note_tc": "水族館。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/horsea-aqua.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    },
+    {
+      "id": "signboard",
+      "code": "CS8P GM1V",
+      "name_tc": "看板島",
+      "note_tc": "可拍照複製招牌。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/signboard.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    },
+    {
+      "id": "pokonlyup",
+      "code": "NDFQ 8XN5",
+      "name_tc": "PokonlyUP!",
+      "note_tc": "Only Up 登山。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/pokonlyup.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    },
+    {
+      "id": "popo",
+      "code": "RRWF 8H35",
+      "name_tc": "ぽぽ島",
+      "note_tc": "大城堡。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/popo.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    },
+    {
+      "id": "item-comp",
+      "code": "CGPV 5RN4",
+      "name_tc": "アイテムコンプ島",
+      "note_tc": "素材蒐集。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/item-comp.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    },
+    {
+      "id": "rocket-warehouse",
+      "code": "V3F7 MYHL",
+      "name_tc": "Rocket warehouse",
+      "note_tc": "地下棲息地。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/rocket-warehouse.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    },
+    {
+      "id": "mixed-build",
+      "code": "JNWQ Y9Y1",
+      "name_tc": "Mixed ビルドアイランド",
+      "note_tc": "混搭建築風格。",
+      "category": "community",
+      "status": "active",
+      "preview": "/cloud-islands/mixed-build.jpg",
+      "preview_kind": "screenshot",
+      "preview_attr_tc": "攻略站／社群公開的參觀截圖。之後可換成自己的 Switch 截圖。",
+      "preview_sources": [
+        {
+          "name_tc": "バブルガムのゲームブログ",
+          "url": "https://babblegum.hatenablog.com/entry/2026/03/28/171536"
+        }
+      ]
+    }
+  ]
+}

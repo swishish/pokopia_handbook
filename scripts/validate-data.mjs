@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -73,6 +73,43 @@ if (!islands.islands?.length) fail("夢島為空");
 uniqueIds(islands.islands, "夢島");
 for (const island of islands.islands) {
   requireFields(island, ["id", "name_tc", "name_jp", "name_en"], `夢島 ${island.id}`);
+}
+
+const cloudIslands = await load("cloud-islands.json");
+const CLOUD_CATEGORY = new Set(["official", "community"]);
+const CLOUD_STATUS = new Set(["active", "ended"]);
+const CLOUD_CODE = /^[0-9A-Z]{4} [0-9A-Z]{4}$/;
+
+if (cloudIslands.game_version !== site.game_version) {
+  fail(`雲島資料版本 ${cloudIslands.game_version} 與站台 ${site.game_version} 不一致`);
+}
+if (!cloudIslands.islands?.length) fail("雲島為空");
+uniqueIds(cloudIslands.islands, "雲島");
+for (const island of cloudIslands.islands) {
+  requireFields(island, ["id", "code", "name_tc", "note_tc", "category", "status"], `雲島 ${island.id}`);
+  if (!CLOUD_CATEGORY.has(island.category)) fail(`雲島 ${island.id} 分類不合法`);
+  if (!CLOUD_STATUS.has(island.status)) fail(`雲島 ${island.id} 狀態不合法`);
+  if (!CLOUD_CODE.test(island.code)) fail(`雲島 ${island.id} 地址格式應為四加四空格`);
+  if (island.status === "ended" && !island.ended_at) fail(`雲島 ${island.id} 已結束但缺少 ended_at`);
+  if (island.preview) {
+    if (!island.preview.startsWith("/")) fail(`雲島 ${island.id} preview 應為站內路徑`);
+    try {
+      await access(resolve(root, "public", island.preview.replace(/^\//, "")));
+    } catch {
+      fail(`雲島 ${island.id} 找不到 preview 檔：${island.preview}`);
+    }
+  }
+  if (island.preview_kind === "screenshot" || island.preview_kind === "promo") {
+    if (!island.preview_sources?.length) fail(`雲島 ${island.id} 截圖／宣傳圖缺少 preview_sources`);
+    for (const [index, source] of island.preview_sources.entries()) {
+      requireFields(source, ["name_tc", "url"], `雲島 ${island.id} 來源 ${index + 1}`);
+    }
+  }
+}
+if (!cloudIslands.preview_note_tc) fail("雲島缺少 preview_note_tc");
+if (!cloudIslands.sources?.length) fail("雲島缺少來源");
+for (const source of cloudIslands.sources) {
+  requireFields(source, ["name_tc", "url"], `雲島來源 ${source.url ?? source.name_tc}`);
 }
 
 if (!tools.directory?.length) fail("工具目錄為空");

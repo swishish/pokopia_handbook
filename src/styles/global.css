@@ -236,6 +236,11 @@ a:hover {
   background: var(--berry-soft);
 }
 
+.badge-ended {
+  color: var(--unverified);
+  background: var(--unverified-bg);
+}
+
 .card,
 .shortcut,
 .rule-card,
@@ -543,5 +548,9 @@ th {
   .island-card {
     break-inside: avoid;
     box-shadow: none;
+  }
+
+  .copy-code {
+    display: none !important;
   }
 }

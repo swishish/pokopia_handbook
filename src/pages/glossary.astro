@@ -8,12 +8,12 @@ const terms = buildGlossary();
 const categories = [...new Set(terms.map((term) => term.category_tc))];
 ---
 
-<BaseLayout title="術語對照" description="口味、夢島與房屋用語的日英繁對照。">
+<BaseLayout title="術語對照" description="口味、夢島、雲島與房屋用語的日英繁對照。">
   <div class="wrap">
     <header class="page-head">
       <p class="kicker">JP / EN / 繁中</p>
       <h1>術語對照</h1>
-      <p class="lead">從本站資料生成：口味、島名，以及幾條房屋用語。可搜繁中、日文或英文。</p>
+      <p class="lead">從本站資料生成：口味、夢島、雲島，以及幾條房屋用語。可搜繁中、日文或英文。</p>
       <p class="muted">{glossaryNote}</p>
       <VersionBadge updated={site.updated} />
     </header>

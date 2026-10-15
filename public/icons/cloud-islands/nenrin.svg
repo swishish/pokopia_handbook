@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-hidden="true">
+  <title>本站雲島示意</title>
+  <rect width="320" height="180" fill="#f0ddb8"/>
+  <ellipse cx="54" cy="38" rx="22" ry="10" fill="#fffdf8" stroke="#1a1a1a" stroke-width="1.8"/>
+  <ellipse cx="72" cy="42" rx="14" ry="8" fill="#fffdf8" stroke="#1a1a1a" stroke-width="1.6"/>
+  <ellipse cx="250" cy="34" rx="20" ry="9" fill="#fffdf8" stroke="#1a1a1a" stroke-width="1.8"/>
+  <ellipse cx="160" cy="138" rx="128" ry="30" fill="#e8dcc4" stroke="#1a1a1a" stroke-width="2.6"/>
+  <ellipse cx="160" cy="150" rx="108" ry="14" fill="#c9b89a" opacity="0.55"/>
+  
+      <path d="M78 108 L110 68 L142 108Z" fill="#e8efe4" stroke="#1a1a1a" stroke-width="2.4"/>
+      <rect x="96" y="86" width="28" height="22" fill="#fffdf8" stroke="#1a1a1a" stroke-width="2"/>
+      <path d="M148 108h72v-28H148Z" fill="#f3e4c8" stroke="#1a1a1a" stroke-width="2.2"/>
+      <path d="M156 80h56l-8-16H164Z" fill="#8b3a4a" stroke="#1a1a1a" stroke-width="2"/>
+      <path d="M200 52c18-6 36 8 28 22-16 4-28-6-28-22Z" fill="#d4e4f3" stroke="#1a1a1a" stroke-width="2"/>
+    
+  <rect x="2" y="2" width="316" height="176" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+</svg>
